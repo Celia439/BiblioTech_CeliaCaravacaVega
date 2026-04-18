@@ -21,7 +21,7 @@ Route::prefix('usuario')->group(function () {
     Route::get('/favoritos', [UsuarioController::class, 'favoritos']);
     Route::get('/prestamos', [PrestamoController::class, 'historial']);
     Route::get('/reservas', [ReservaController::class, 'historial']);
-    Route::get('/multas', [MultaController::class, 'index']);
+    Route::get('/multas', [MultaController::class, 'misMultas']);
 });
 
 //Rutas de bibliotecario logueado

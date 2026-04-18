@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Reserva extends Model
 {
     protected $table = 'reservas';
-    protected $primaryKey = 'id_reserva';
     public $timestamps = false;
 
     protected $fillable = [
@@ -20,11 +19,11 @@ class Reserva extends Model
 
     public function usuario()
     {
-        return $this->belongsTo(User::class, 'id_usuario', 'id_usuario');
+        return $this->belongsTo(User::class, 'id_usuario', 'id');
     }
 
     public function ejemplar()
     {
-        return $this->belongsTo(Ejemplar::class, 'id_ejemplar', 'id_ejemplar');
+        return $this->belongsTo(Ejemplar::class, 'id_ejemplar', 'id');
     }
 }

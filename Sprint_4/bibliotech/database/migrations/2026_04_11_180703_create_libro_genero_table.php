@@ -9,14 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('libro_genero', function (Blueprint $table) {
-            $table->foreignId('id_libro')->constrained('libros', 'id_libro');
-            $table->foreignId('id_genero')->constrained('generos', 'id_genero');
-            $table->primary(['id_libro', 'id_genero']);
-        });
-    }
+public function up(): void
+{
+    Schema::create('libro_genero', function (Blueprint $table) {
+        $table->id();
+        $table->foreignId('libro_id')->constrained('libros')->onDelete('cascade');
+        $table->foreignId('genero_id')->constrained('generos')->onDelete('cascade');
+        $table->timestamps();
+    });
+}
+
+
+
 
     /**
      * Reverse the migrations.

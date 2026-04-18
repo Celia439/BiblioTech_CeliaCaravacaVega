@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Prestamo extends Model
 {
     protected $table = 'prestamos';
-    protected $primaryKey = 'id_prestamo';
     public $timestamps = false;
 
     protected $fillable = [
@@ -23,21 +22,21 @@ class Prestamo extends Model
 
     public function lector()
     {
-        return $this->belongsTo(User::class, 'id_usuario_lector', 'id_usuario');
+        return $this->belongsTo(User::class, 'id_usuario_lector', 'id');
     }
 
     public function bibliotecario()
     {
-        return $this->belongsTo(User::class, 'id_bibliotecario', 'id_usuario');
+        return $this->belongsTo(User::class, 'id_bibliotecario', 'id');
     }
 
     public function ejemplar()
     {
-        return $this->belongsTo(Ejemplar::class, 'id_ejemplar', 'id_ejemplar');
+        return $this->belongsTo(Ejemplar::class, 'id_ejemplar', 'id');
     }
 
     public function multa()
     {
-        return $this->hasOne(Multa::class, 'id_prestamo', 'id_prestamo');
+        return $this->hasOne(Multa::class, 'id_prestamo', 'id');
     }
 }

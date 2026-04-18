@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Genero extends Model
 {
     protected $table = 'generos';
-    protected $primaryKey = 'id_genero';
     public $timestamps = false;
 
     protected $fillable = [
@@ -17,6 +16,6 @@ class Genero extends Model
 
     public function libros()
     {
-        return $this->belongsToMany(Libro::class, 'libro_genero', 'id_genero', 'id_libro');
+        return $this->belongsToMany(Libro::class, 'libro_genero', 'id_genero', 'id');
     }
 }

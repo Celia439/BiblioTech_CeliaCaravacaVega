@@ -9,16 +9,18 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up(): void
-    {
-        Schema::create('estanterias', function (Blueprint $table) {
-            $table->id('id_estanteria');
-            $table->string('codigo', 20);
-            $table->string('pasillo', 50);
-            $table->string('seccion', 50);
-            $table->text('descripcion')->nullable();
-        });
-    }
+public function up(): void
+{
+    Schema::create('estanterias', function (Blueprint $table) {
+        $table->id();
+        $table->string('codigo')->unique();
+        $table->string('seccion')->nullable();
+        $table->string('pasillo')->nullable();
+        $table->text('descripcion')->nullable();
+        $table->timestamps();
+    });
+}
+
 
     /**
      * Reverse the migrations.

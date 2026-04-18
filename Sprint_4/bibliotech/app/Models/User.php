@@ -12,7 +12,6 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
 
-    protected $primaryKey = 'id_usuario';
 
     /**
      * The attributes that are mass assignable.
@@ -56,16 +55,16 @@ class User extends Authenticatable
 
     public function prestamosLector()
     {
-        return $this->hasMany(Prestamo::class, 'id_usuario_lector', 'id_usuario');
+        return $this->hasMany(Prestamo::class, 'id_usuario_lector', 'id');
     }
 
     public function prestamosBibliotecario()
     {
-        return $this->hasMany(Prestamo::class, 'id_bibliotecario', 'id_usuario');
+        return $this->hasMany(Prestamo::class, 'id_bibliotecario', 'id');
     }
 
     public function reservas()
     {
-        return $this->hasMany(Reserva::class, 'id_usuario', 'id_usuario');
+        return $this->hasMany(Reserva::class, 'id_usuario', 'id');
     }
 }
