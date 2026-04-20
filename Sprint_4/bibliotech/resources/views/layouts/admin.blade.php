@@ -1,77 +1,113 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BiblioTech Admin - @yield('title', 'Panel de Gestión')</title>
+    <title>BiblioTech Admin - @yield('title', 'Gestión')</title>
     
-    <!-- Fuentes -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <!-- Estilos del proyecto original -->
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/estilos-bibliotecario.css') }}">
 
-    <!-- Tailwind CSS -->
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    <style>
-        body {
-            font-family: 'Instrument Sans', sans-serif;
-        }
-        .admin-sidebar {
-            background-color: #0f172a;
-        }
-    </style>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <!-- JS del Bibliotecario -->
+    <script src="{{ asset('js/bibliotecario.js') }}"></script>
 </head>
-<body class="bg-gray-100 flex h-screen overflow-hidden">
 
-    <!-- SIDEBAR: Navegación del Bibliotecario -->
-    <aside class="admin-sidebar text-slate-300 w-64 flex-shrink-0 flex flex-col shadow-xl">
-        <div class="p-6 flex items-center space-x-3 text-white border-b border-slate-800">
-            <div class="w-8 h-8 bg-amber-500 rounded flex items-center justify-center font-bold text-slate-900">A</div>
-            <span class="text-xl font-bold tracking-tight">Admin<span class="text-amber-500">Tech</span></span>
-        </div>
-        
-        <nav class="flex-grow py-6 overflow-y-auto">
-            <div class="px-6 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Gestión</div>
-            <ul class="space-y-1">
-                <li><a href="/bibliotecario/libros" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition">Libros</a></li>
-                <li><a href="/bibliotecario/usuarios" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition">Usuarios</a></li>
-                <li><a href="/bibliotecario/prestamos" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition">Préstamos Aktivos</a></li>
-                <li><a href="/bibliotecario/reservas" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition">Reservas</a></li>
-                <li><a href="/bibliotecario/multas" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition text-amber-500">Multas/Sanciones</a></li>
+<body>
+    <!-- ========== NAVBAR (Basado en el diseño original) ========== -->
+    <nav class="navbar navbar-biblioteca navbar-expand-lg">
+        <a class="navbar-brand px-3" href="/bibliotecario/libros">
+            <img src="{{ asset('img/LogoBiblioteca.svg') }}" alt="Logo" style="height: 40px;">
+        </a>
+        <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+            <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navMenu">
+            <ul class="navbar-nav ms-3">
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('*/prestamos*') ? 'active' : '' }}" href="/bibliotecario/prestamos">
+                        <span class="nav-icon">+</span> Préstamos
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('*/reservas*') ? 'active' : '' }}" href="/bibliotecario/reservas">
+                        <span class="nav-icon"><i class="bi bi-calendar3"></i></span> Reservas
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->is('*/multas*') ? 'active' : '' }}" href="/bibliotecario/multas">
+                        <span class="nav-icon"><i class="bi bi-clock"></i></span> Multas
+                    </a>
+                </li>
             </ul>
-
-            <div class="px-6 mt-8 mb-2 text-xs font-semibold text-slate-500 uppercase tracking-wider">Configuración</div>
-            <ul class="space-y-1">
-                <li><a href="#" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition">Mi Biblioteca</a></li>
-                <li><a href="/" class="flex items-center px-6 py-3 hover:bg-slate-800 hover:text-white transition text-blue-400">Ver Web Pública</a></li>
+            <ul class="navbar-nav ms-auto align-items-center px-3">
+                <li class="nav-item">
+                    <button class="btn border-0 text-white fs-4"><i class="bi bi-bell"></i></button>
+                </li>
+                <li class="nav-item">
+                    <button class="btn btn-outline-light ms-2">Login</button>
+                </li>
             </ul>
-        </nav>
-
-        <div class="p-4 border-t border-slate-800 bg-slate-900/50">
-            <div class="text-sm font-medium text-white">Bibliotecario</div>
-            <div class="text-xs text-slate-500">Sesión iniciada</div>
         </div>
-    </aside>
+    </nav>
 
-    <!-- CONTENT AREA -->
-    <main class="flex-grow flex flex-col min-w-0 overflow-hidden">
-        <!-- Top Header for Admin -->
-        <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-8 flex-shrink-0">
-            <h1 class="text-xl font-semibold text-gray-800">@yield('header_title', 'Dashboard')</h1>
-            <div class="flex items-center space-x-4">
-                <button class="text-gray-500 hover:text-gray-700">Notificaciones</button>
-                <div class="w-8 h-8 rounded-full bg-slate-200"></div>
+    <!-- ========== SIDEBAR + CONTENIDO ========== -->
+    <div class="d-flex h-100">
+
+        <!-- Sidebar -->
+        <div class="sidebar d-none d-md-block" style="width: 160px; min-height: calc(100vh - 60px); background-color: #fff; border-right: 1px solid #eee; padding-top: 0.8rem; flex-shrink: 0;">
+            <a href="/bibliotecario/usuarios" class="d-block px-3 py-2 text-decoration-none {{ request()->is('*/usuarios*') ? 'active-sidebar' : '' }}"
+                style="color: #333; font-size: 0.9rem; font-weight: 600; border-left: 3px solid transparent; transition: all 0.2s;">
+                Usuarios
+            </a>
+            <a href="/bibliotecario/libros" class="d-block px-3 py-2 text-decoration-none {{ request()->is('*/libros*') ? 'active-sidebar' : '' }}"
+                style="color: #333; font-size: 0.9rem; font-weight: 600; border-left: 3px solid transparent; transition: all 0.2s;">
+                Libros
+            </a>
+            <a href="/bibliotecario/empresa" class="d-block px-3 py-2 text-decoration-none {{ request()->is('*/empresa*') ? 'active-sidebar' : '' }}"
+                style="color: #333; font-size: 0.9rem; font-weight: 600; border-left: 3px solid transparent; transition: all 0.2s;">
+                Empresa
+            </a>
+        </div>
+
+        <!-- Contenido principal -->
+        <div class="flex-grow-1" style="background-color: #f8fafc; min-height: calc(100vh - 60px);">
+
+            <!-- Barra secundaria de búsqueda -->
+            <div class="barra-secundaria p-3 bg-white border-bottom">
+                <div class="input-group" style="max-width: 400px;">
+                    <span class="input-group-text bg-white border-end-0"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control border-start-0" placeholder="Buscar...">
+                </div>
             </div>
-        </header>
 
-        <!-- Main Content Scrollable -->
-        <section class="flex-grow overflow-y-auto p-8">
-            <div class="max-w-6xl mx-auto">
+            <!-- Contenido dinámico -->
+            <div class="p-4">
                 @yield('content')
             </div>
-        </section>
-    </main>
+        </div>
+    </div>
 
+    <!-- Bootstrap Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <style>
+        .active-sidebar {
+            border-left-color: var(--color-navbar, #008188) !important;
+            background-color: #f0f8f8;
+        }
+        .navbar-biblioteca {
+            background-color: #008188; /* Color representativo del navbar original */
+        }
+    </style>
 </body>
+
 </html>

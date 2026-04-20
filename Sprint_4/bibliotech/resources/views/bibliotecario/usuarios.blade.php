@@ -1,43 +1,43 @@
 @extends('layouts.admin')
 
-@section('title', 'Gestión de Libros')
+@section('title', 'Gestión de Usuarios')
 
 @section('content')
 <!-- ========== CONTENIDO ========== -->
 <div class="contenido-principal">
     <div class="card-biblioteca">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
-            <div class="card-titulo">Gestión de Libros</div>
+            <div class="card-titulo">Gestión de Usuarios</div>
             <button class="btn btn-naranja btn-sm rounded-pill px-3">
-                <i class="bi bi-plus-lg"></i> Nuevo Libro
+                <i class="bi bi-person-plus-fill"></i> Nuevo Usuario
             </button>
         </div>
 
-        <!-- Tabla de Libros -->
-        <div class="table-responsive" style="margin-top: 1rem;">
+        <!-- Tabla de Usuarios -->
+        <div class="table-responsive">
             <table class="tabla-biblioteca">
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>ISBN</th>
-                        <th>Título</th>
-                        <th>Cantidad</th>
-                        <th>Autor</th>
+                        <th>Nombre</th>
+                        <th>DNI</th>
+                        <th>Email</th>
+                        <th>Rol</th>
                         <th>Estado</th>
                         <th style="width: 100px;">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach($libros as $libro)
+                    @forelse($usuarios as $usuario)
                     <tr>
-                        <td>{{ $libro->id }}</td>
-                        <td>{{ $libro->isbn }}</td>
-                        <td class="fw-bold">{{ $libro->titulo }}</td>
-                        <td>{{ $libro->cantidad }}</td>
-                        <td>{{ $libro->autor }}</td>
+                        <td>{{ $usuario->id }}</td>
+                        <td class="fw-bold">{{ $usuario->name }}</td>
+                        <td>{{ $usuario->dni ?? '---' }}</td>
+                        <td>{{ $usuario->email }}</td>
+                        <td><span class="badge bg-light text-dark border">{{ ucfirst($usuario->role ?? 'lector') }}</span></td>
                         <td>
-                            <span class="estado-badge {{ $libro->cantidad > 0 ? 'estado-activo' : 'estado-bloqueado' }}">
-                                {{ $libro->cantidad > 0 ? 'Activo' : 'Agotado' }}
+                            <span class="estado-badge {{ $usuario->status == 'activo' ? 'estado-activo' : 'estado-bloqueado' }}">
+                                {{ ucfirst($usuario->status ?? 'Activo') }}
                             </span>
                         </td>
                         <td>
@@ -47,7 +47,11 @@
                             </div>
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="7" class="text-center py-4 text-muted">No hay usuarios registrados.</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

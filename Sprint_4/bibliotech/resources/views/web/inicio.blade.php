@@ -1,63 +1,121 @@
 @extends('layouts.app')
 
-@section('title', 'Bienvenido a BiblioTech')
+@section('title', 'Inicio')
 
 @section('content')
-<div class="space-y-16">
-    <!-- Hero Section -->
-    <section class="flex flex-col md:flex-row items-center justify-between gap-12 py-10">
-        <div class="md:w-1/2 space-y-6">
-            <h1 class="text-5xl md:text-6xl font-bold text-slate-900 leading-tight">
-                El futuro de la <span class="text-blue-600">lectura</span> está aquí.
-            </h1>
-            <p class="text-lg text-slate-600 leading-relaxed">
-                Explora miles de títulos, gestiona tus préstamos y mantente al día con las últimas novedades de nuestra biblioteca digital. Todo en un solo lugar.
-            </p>
-            <div class="flex space-x-4">
-                <a href="/generos" class="bg-blue-600 text-white px-8 py-4 rounded-xl font-bold hover:bg-blue-700 transition shadow-lg shadow-blue-200">
-                    Explorar Catálogo
-                </a>
-                <a href="/login" class="bg-white border-2 border-slate-200 text-slate-700 px-8 py-4 rounded-xl font-bold hover:bg-slate-50 transition">
-                    Saber más
-                </a>
-            </div>
+<main>
+    <!-- Banner Principal -->
+    <section id="carouselExampleIndicators" class="carousel slide banner-principal container">
+        <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
-        <div class="md:w-1/2">
-            <!-- Representación visual (Placeholder de imagen con estilo) -->
-            <div class="w-full h-80 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-3xl shadow-2xl flex items-center justify-center text-white transform rotate-3 hover:rotate-0 transition duration-500">
-                <div class="text-center">
-                    <svg class="w-24 h-24 mx-auto mb-4 opacity-80" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
-                    </svg>
-                    <p class="text-xl font-semibold">BiblioTech Library</p>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <div class="banner-contenido p-5">
+                    <div class="banner-imagen"></div>
+                    <div class="banner-descripcion">
+                        <p>En libros seleccionados</p>
+                        <h1 class="banner-descuento">50%</h1>
+                    </div>
+                    <div class="promo-button">
+                        <p class="banner-promo">¡Tu próxima aventura te espera! </p>
+                        <button class="btn-general">Ver Ofertas</button>
+                    </div>
                 </div>
             </div>
+            <div class="carousel-item">
+                <img src="{{ asset('img/ImagenAnuncioEj.png') }}" class="d-block w-100 rounded" alt="Ejemplo de anuncio">
+            </div>
         </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
     </section>
 
-    <!-- Características -->
-    <section class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
-            <div class="w-12 h-12 bg-amber-100 text-amber-600 rounded-lg flex items-center justify-center mb-6">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+    <!-- Panel con Imagen y Contenido -->
+    <div class="container my-5">
+        <section class="panel-imagen-contenido m-0">
+            <div class="panel-imagen"></div>
+            <div class="panel-texto">
+                <h2>1º Libro</h2>
+                <p class="subtitulo">El Principito</p>
+                <p class="descripcion">Descubre la historia del pequeño príncipe que vivía en un asteroide.</p>
+                <p class="texto-completo">Una obra maestra de la literatura universal que nos enseña el valor de la amistad y la importancia de ver con el corazón.</p>
             </div>
-            <h3 class="text-xl font-bold mb-3">Reservas 24/7</h3>
-            <p class="text-slate-600 text-sm">Reserva tus libros favoritos desde cualquier lugar y en cualquier momento.</p>
-        </div>
-        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
-            <div class="w-12 h-12 bg-green-100 text-green-600 rounded-lg flex items-center justify-center mb-6">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        </section>
+    </div>
+
+    <!-- Navegación de Géneros con Inputs -->
+    <div class="container mt-5">
+        <form class="carrusel-puntos d-flex align-items-center justify-content-center gap-4">
+            <div class="form-check p-0 m-0 d-flex align-items-center">
+                <input class="form-check-input d-none" type="radio" name="generoPref" id="genGeneral" checked>
+                <label class="form-check-label d-flex align-items-center cursor-pointer" for="genGeneral">
+                    <span class="punto me-2"></span> <span class="fw-bold" style="color:var(--color-header)">General</span>
+                </label>
             </div>
-            <h3 class="text-xl font-bold mb-3">Sin Multas Sorpresa</h3>
-            <p class="text-slate-600 text-sm">Recibe notificaciones automáticas antes de que venza tu préstamo.</p>
-        </div>
-        <div class="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 hover:shadow-md transition">
-            <div class="w-12 h-12 bg-purple-100 text-purple-600 rounded-lg flex items-center justify-center mb-6">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z"></path></svg>
+            <div class="form-check p-0 m-0 d-flex align-items-center">
+                <input class="form-check-input d-none" type="radio" name="generoPref" id="genMiedo">
+                <label class="form-check-label d-flex align-items-center cursor-pointer" for="genMiedo">
+                    <span class="punto me-2"></span> <span class="text-muted">Miedo</span>
+                </label>
             </div>
-            <h3 class="text-xl font-bold mb-3">Favoritos</h3>
-            <p class="text-slate-600 text-sm">Guarda los libros que quieres leer después en tu lista personalizada.</p>
-        </div>
-    </section>
-</div>
+            <div class="form-check p-0 m-0 d-flex align-items-center">
+                <input class="form-check-input d-none" type="radio" name="generoPref" id="genAccion">
+                <label class="form-check-label d-flex align-items-center cursor-pointer" for="genAccion">
+                    <span class="punto me-2"></span> <span class="text-muted">Acción</span>
+                </label>
+            </div>
+            <div class="form-check p-0 m-0 d-flex align-items-center">
+                <input class="form-check-input d-none" type="radio" name="generoPref" id="genRomance">
+                <label class="form-check-label d-flex align-items-center cursor-pointer" for="genRomance">
+                    <span class="punto me-2"></span> <span class="text-muted">Romance</span>
+                </label>
+            </div>
+            
+            <a href="/generos" class="ms-3"><button type="button" class="btn-siguiente">›</button></a>
+        </form>
+    </div>
+
+    <!-- Sección de Libros Reales -->
+    <div class="container my-5">
+        <section class="agrupacion-contenido">
+            <div class="d-flex justify-content-between align-items-end mb-4">
+                <div>
+                    <h2 class="mb-1 text-white">Libros Destacados</h2>
+                    <p class="subtitulo text-white opacity-75 mb-0" style="font-size: 0.95rem;">Basado en tu catálogo actual</p>
+                </div>
+            </div>
+
+            <div class="row g-4">
+                @forelse($libros as $libro)
+                <div class="col-lg-4 col-md-6 mb-3">
+                    <div class="tarjeta-item">
+                        <div class="tarjeta-imagen">
+                            <!-- Placeholder visual -->
+                            <div class="d-flex align-items-center justify-content-center h-100 bg-secondary rounded opacity-25">
+                                <i class="bi bi-book text-white fs-1"></i>
+                            </div>
+                        </div>
+                        <h3>{{ $libro->titulo }}</h3>
+                        <p>{{ Str::limit($libro->descripcion, 100) }}</p>
+                        <button class="btn-favorito">❤</button>
+                    </div>
+                </div>
+                @empty
+                <div class="col-12">
+                    <p class="text-white text-center">No hay libros cargados todavía. Por favor, ejecuta los seeders.</p>
+                </div>
+                @endforelse
+            </div>
+        </section>
+    </div>
+</main>
 @endsection
