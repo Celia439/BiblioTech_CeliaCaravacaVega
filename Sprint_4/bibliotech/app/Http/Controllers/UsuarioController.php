@@ -19,6 +19,7 @@ class UsuarioController extends Controller
 
     public function favoritos()
     {
-        return view('usuario.favoritos');
+        $favoritos = collect([]); // Por ahora vacío
+        return view('usuario.favoritos', compact('favoritos'));
     }
 }

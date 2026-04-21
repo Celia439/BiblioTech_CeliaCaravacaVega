@@ -5,12 +5,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BiblioTech Admin - @yield('title', 'Gestión')</title>
-    
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    
+
     <!-- Estilos del proyecto original -->
     <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('css/estilos-bibliotecario.css') }}">
@@ -22,7 +22,7 @@
 </head>
 
 <body>
-    <!-- ========== NAVBAR (Basado en el diseño original) ========== -->
+    <!-- ========== NAVBAR ========== -->
     <nav class="navbar navbar-biblioteca navbar-expand-lg">
         <a class="navbar-brand px-3" href="/bibliotecario/libros">
             <img src="{{ asset('img/LogoBiblioteca.svg') }}" alt="Logo" style="height: 40px;">
@@ -104,8 +104,10 @@
             border-left-color: var(--color-navbar, #008188) !important;
             background-color: #f0f8f8;
         }
+
         .navbar-biblioteca {
-            background-color: #008188; /* Color representativo del navbar original */
+            background-color: #008188;
+            /* Color representativo del navbar original */
         }
     </style>
 </body>

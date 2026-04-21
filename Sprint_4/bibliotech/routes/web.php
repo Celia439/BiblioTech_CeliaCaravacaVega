@@ -15,7 +15,7 @@ Route::get('/devoluciones', [WebController::class, 'devolucion']);
 Route::get('/prestamos', [WebController::class, 'prestamos']);
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'store']);
-Route::get('/libro/{id}', [LibroController::class, 'show']);
+Route::get('/libro/{id}', [LibroController::class, 'show'])->name('libros.show');
 Route::get('/generos', [GeneroController::class, 'index']);
 
 //Rutas de usuario logueado
@@ -37,3 +37,7 @@ Route::prefix('bibliotecario')->group(function () {
     Route::get('/multas', [MultaController::class, 'index']);
     Route::get('/empresa', [WebController::class, 'empresa']);
 });
+//Hay que implementar esto para que no se pueda acceder sin sesion 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware('auth'); // solo usuarios logeados

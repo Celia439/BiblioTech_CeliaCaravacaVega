@@ -18,7 +18,7 @@
     <main class="container-fluid p-0 vh-100 d-flex flex-column flex-md-row">
 
         <!-- Lado Izquierdo: Imagen -->
-        <div class="col-12 col-md-6 d-none d-md-block" style="background: url('{{ asset('img/ImagenAnuncioEj.png') }}') center/cover no-repeat;">
+        <div class="col-12 col-md-6 d-none d-md-block" style="background: url({{ asset('img/ImagenAnuncioEj.png') }}) center/cover no-repeat;">
         </div>
 
         <!-- Lado Derecho: Formulario -->

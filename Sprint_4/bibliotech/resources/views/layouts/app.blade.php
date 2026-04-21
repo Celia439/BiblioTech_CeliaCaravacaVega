@@ -23,7 +23,7 @@
             <nav class="menu-principal">
                 <!-- Izquierda: Logo -->
                 <img class="logo-icon" src="{{ asset('img/LogoBiblioteca.svg') }}">
-                
+
                 <!-- Centro: Enlaces (Ocupan el espacio) -->
                 <div class="d-flex flex-grow-1 justify-content-around gap-4 px-5">
                     <a class="{{ request()->is('/') ? 'seleccionado' : '' }}" href="/">Inicio</a>
@@ -38,7 +38,20 @@
                     <button class="iconos-header"><img src="{{ asset('img/lupa.svg') }}" /></button>
                     <button class="iconos-header"><img src="{{ asset('img/notificacion.svg') }}" /></button>
                     <button class="iconos-header"><img src="{{ asset('img/lista.svg') }}" /></button>
+                    {{ auth()->check() ? 'SI' : 'NO' }}
+                    @auth
+                    {{-- Usuario logueado: mostrar botón de Mi Cuenta --}}
+                    <button class="btn-general ms-2"><a href="/usuario/cuenta">Mi Cuenta</a></button>
+                    <script>
+                        console.log("Usuario logueado");
+                    </script>
+                    @else
+                    {{-- Sin sesión: mostrar Login --}}
                     <button class="btn-general ms-2"><a href="/login">Login</a></button>
+                    <script>
+                        console.log("Usuario no logueado");
+                    </script>
+                    @endauth
                 </div>
             </nav>
         </div>
