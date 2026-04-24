@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Libro extends Model
 {
     protected $table = 'libros';
+    protected $primaryKey = 'id_libro';
     public $timestamps = false;
 
     protected $fillable = [
@@ -24,7 +25,7 @@ class Libro extends Model
 
     public function ejemplares()
     {
-        return $this->hasMany(Ejemplar::class, 'id_libro', 'id');
+        return $this->hasMany(Ejemplar::class, 'id_libro');
     }
 
     public function generos()

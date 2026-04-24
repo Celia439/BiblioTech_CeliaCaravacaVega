@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ejemplar extends Model
 {
     protected $table = 'ejemplares';
+    protected $primaryKey = 'id_ejemplar';
     public $timestamps = false;
 
     protected $fillable = [
@@ -19,21 +20,21 @@ class Ejemplar extends Model
 
     public function libro()
     {
-        return $this->belongsTo(Libro::class, 'id_libro', 'id');
+        return $this->belongsTo(Libro::class, 'id_libro');
     }
 
     public function estanteria()
     {
-        return $this->belongsTo(Estanteria::class, 'id_estanteria', 'id');
+        return $this->belongsTo(Estanteria::class, 'id_estanteria');
     }
 
     public function reservas()
     {
-        return $this->hasMany(Reserva::class, 'id_ejemplar', 'id');
+        return $this->hasMany(Reserva::class, 'id_ejemplar');
     }
 
     public function prestamos()
     {
-        return $this->hasMany(Prestamo::class, 'id_ejemplar', 'id');
+        return $this->hasMany(Prestamo::class, 'id_ejemplar');
     }
 }

@@ -18,6 +18,6 @@ class Multa extends Model
 
     public function prestamo()
     {
-        return $this->belongsTo(Prestamo::class, 'id_prestamo', 'id');
+        return $this->belongsTo(Prestamo::class, 'id_prestamo');
     }
 }

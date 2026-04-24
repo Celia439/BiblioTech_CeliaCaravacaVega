@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Estanteria extends Model
 {
     protected $table = 'estanterias';
+    protected $primaryKey = 'id_estanteria';
     public $timestamps = false;
 
     protected $fillable = [
@@ -18,6 +19,6 @@ class Estanteria extends Model
 
     public function ejemplares()
     {
-        return $this->hasMany(Ejemplar::class, 'id_estanteria', 'id');
+        return $this->hasMany(Ejemplar::class, 'id_estanteria');
     }
 }

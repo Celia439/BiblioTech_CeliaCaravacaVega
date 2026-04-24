@@ -11,6 +11,7 @@ class User extends Authenticatable
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable;
+    protected $primaryKey = 'id_usuario';
 
 
     /**
@@ -55,16 +56,16 @@ class User extends Authenticatable
 
     public function prestamosLector()
     {
-        return $this->hasMany(Prestamo::class, 'id_usuario_lector', 'id');
+        return $this->hasMany(Prestamo::class, 'id_usuario_lector');
     }
 
     public function prestamosBibliotecario()
     {
-        return $this->hasMany(Prestamo::class, 'id_bibliotecario', 'id');
+        return $this->hasMany(Prestamo::class, 'id_bibliotecario');
     }
 
     public function reservas()
     {
-        return $this->hasMany(Reserva::class, 'id_usuario', 'id');
+        return $this->hasMany(Reserva::class, 'id_usuario');
     }
 }
