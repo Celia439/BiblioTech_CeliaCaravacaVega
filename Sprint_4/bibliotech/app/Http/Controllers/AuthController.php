@@ -20,10 +20,10 @@ class AuthController extends Controller
         ]);
 
         if (Auth::attempt($credentials)) {
-            //$request->session()->regenerate();
+            $request->session()->regenerate();
 
             // Redirigir según el rol del usuario
-            if (Auth::user()->rol === 'admin') {
+            if (Auth::user()->rol === 'bibliotecario' || Auth::user()->rol === 'admin') {
                 return redirect('/bibliotecario');
             }
 

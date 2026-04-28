@@ -13,8 +13,8 @@ public function up(): void
 {
     Schema::create('libro_genero', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('libro_id')->constrained('libros')->onDelete('cascade');
-        $table->foreignId('genero_id')->constrained('generos')->onDelete('cascade');
+        $table->foreignId('id_libro')->constrained('libros', 'id_libro')->onDelete('cascade');
+        $table->foreignId('id_genero')->constrained('generos', 'id_genero')->onDelete('cascade');
         $table->timestamps();
     });
 }

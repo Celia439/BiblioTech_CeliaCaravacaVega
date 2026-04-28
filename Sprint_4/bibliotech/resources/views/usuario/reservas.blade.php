@@ -1,95 +1,70 @@
 @extends('layouts.app')
 
-@section('title', 'Reservar Libros')
+@section('title', 'Historial de Reservas | BiblioTech')
 
 @section('content')
-<main class="container my-5">
-    
-    <!-- Título Principal -->
+<div class="container py-5">
     <div class="mb-4">
-        <h1 class="text-dark fw-bold" style="font-size: 2.5rem;">Reservas</h1>
+        <h2 class="fw-bold text-dark">Reservas</h2>
     </div>
 
-    <!-- Sección: Libros a reservar (Contenedor Morado) -->
-    <section class="agrupacion-contenido">
-        <h2 class="fs-4 mb-4">Libros a reservar</h2>
+    <div class="agrupacion-contenido p-5 rounded-5" style="background-color: var(--color-bloque-fondo) !important;">
+        <!-- Cabecera de la sección -->
+        <div class="mb-4 text-white">
+            <h4 class="fw-bold m-0">Realizada/Pendiente</h4>
+            <small class="opacity-75">5/10/2025 - 10/01/2026</small>
+        </div>
 
-        <form>
-            <!-- Nota de Entrega -->
-            <div class="mb-4">
-                <label for="notaEntrega" class="form-label text-white">Delivery note</label>
-                <div class="input-group">
-                    <input type="text" id="notaEntrega" class="form-control form-control-lg" placeholder="Añade detalles...">
-                    <button class="btn btn-light d-flex align-items-center justify-content-center" type="button" style="width: 50px;">
-                        <i class="bi bi-plus-lg text-dark fs-5"></i>
-                    </button>
+        <!-- Rejilla de Reservas -->
+        <div class="row g-4 mb-5">
+            @forelse($reservas as $reserva)
+                <div class="col-md-4">
+                    <div class="tarjeta-item p-3 rounded-4 h-100" style="background-color: var(--color-tarjeta) !important; border: 1px solid rgba(255,255,255,0.1);">
+                        <!-- Imagen y Corazón -->
+                        <div class="position-relative mb-3">
+                            <div class="bg-white bg-opacity-10 rounded-3 d-flex align-items-center justify-content-center" style="aspect-ratio: 1/1;">
+                                <i class="bi bi-book text-white-50 fs-1"></i>
+                            </div>
+                            <button class="btn btn-link position-absolute top-0 end-0 p-2 text-white opacity-75">
+                                <i class="bi bi-heart fs-4"></i>
+                            </button>
+                        </div>
+
+                        <!-- Info del Libro -->
+                        <div class="text-white">
+                            <h5 class="fw-bold mb-2">{{ $reserva->ejemplar->libro->titulo }}</h5>
+                            <p class="small opacity-75 line-clamp-3">
+                                {{ Str::limit($reserva->ejemplar->libro->descripcion, 100) }}
+                            </p>
+                        </div>
+                    </div>
                 </div>
-            </div>
-
-            <!-- Checkbox -->
-            <div class="form-check mb-2">
-                <input class="form-check-input" type="checkbox" id="terminos">
-                <label class="form-check-label text-white" for="terminos">
-                    Acepto los términos y condiciones
-                </label>
-            </div>
-            <a href="#" class="text-white-50 text-decoration-underline d-inline-block mb-4" style="font-size: 0.9rem;">Leer nuestros T&Cs</a>
-        </form>
-    </section>
-
-    <!-- Sección: Calendario (Días) -->
-    <section class="agrupacion-contenido mt-4">
-        <h2 class="fs-4 mb-4">Seleccionar Días</h2>
-
-        <!-- Selector mes y año -->
-        <div class="d-flex align-items-center justify-content-between mb-3 rounded-top p-3" style="background-color: var(--color-tarjeta);">
-            <button class="btn btn-sm btn-outline-light border-0"><i class="bi bi-chevron-left"></i></button>
-            
-            <div class="d-flex gap-2 w-50 justify-content-center">
-                <select class="form-select form-select-sm w-50">
-                    <option>Abril</option>
-                </select>
-                <select class="form-select form-select-sm w-50">
-                    <option>2026</option>
-                </select>
-            </div>
-
-            <button class="btn btn-sm btn-outline-light border-0"><i class="bi bi-chevron-right"></i></button>
+            @empty
+                <div class="col-12 text-center py-5">
+                    <p class="text-white opacity-50">No tienes reservas actualmente.</p>
+                    <a href="/generos" class="btn btn-naranja rounded-pill mt-3">Explorar libros</a>
+                </div>
+            @endforelse
         </div>
 
-        <!-- Grilla de Calendario -->
-        <div class="bg-white rounded-bottom p-3">
-            <div class="row text-center fw-bold mb-3 text-secondary" style="font-size: 0.9rem;">
-                <div class="col">Lu</div>
-                <div class="col">Ma</div>
-                <div class="col">Mi</div>
-                <div class="col">Ju</div>
-                <div class="col">Vi</div>
-                <div class="col">Sa</div>
-                <div class="col">Do</div>
+        <!-- Paginación estética -->
+        @if($reservas->count() > 0)
+            <div class="d-flex justify-content-center gap-3 mt-4">
+                <div class="rounded-circle bg-white bg-opacity-25" style="width: 25px; height: 25px;"></div>
+                <div class="rounded-circle bg-white bg-opacity-100" style="width: 25px; height: 25px;"></div>
+                <div class="rounded-circle bg-white bg-opacity-25" style="width: 25px; height: 25px;"></div>
+                <div class="rounded-circle bg-white bg-opacity-25" style="width: 25px; height: 25px;"></div>
             </div>
+        @endif
+    </div>
+</div>
 
-            <!-- Ejemplo de semana 1 -->
-            <div class="row text-center mb-3">
-                <div class="col"><div class="p-2 border rounded bg-light text-muted">30</div></div>
-                <div class="col"><div class="p-2 border rounded bg-light text-muted">31</div></div>
-                <div class="col"><div class="p-2 border rounded text-dark">1</div></div>
-                <div class="col"><div class="p-2 border rounded text-dark">2</div></div>
-                <div class="col"><div class="p-2 border rounded text-dark">3</div></div>
-                <div class="col"><div class="p-2 border rounded text-dark">4</div></div>
-                <div class="col"><div class="p-2 border rounded text-dark">5</div></div>
-            </div>
-            <!-- ... se pueden añadir más semanas o dejarlo como mockup visual ... -->
-            <div class="row text-center mb-3 text-muted" style="font-size: 0.8rem;">
-                <div class="col-12">(Diseño de calendario interactivo migrado)</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Botón final -->
-    <section class="mt-4">
-        <button class="btn btn-naranja btn-lg px-5">Realizar Reserva</button>
-    </section>
-
-</main>
+<style>
+    .line-clamp-3 {
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;  
+        overflow: hidden;
+    }
+</style>
 @endsection

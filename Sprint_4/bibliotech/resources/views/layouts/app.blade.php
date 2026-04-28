@@ -20,17 +20,25 @@
     <!-- Cabecera -->
     <header class="bg-prymary">
         <div class="container">
-            <nav class="menu-principal">
+            <nav class="menu-principal border-0">
                 <!-- Izquierda: Logo -->
-                <img class="logo-icon" src="{{ asset('img/LogoBiblioteca.svg') }}">
+                <a href="/"><img class="logo-icon" src="{{ asset('img/LogoBiblioteca.svg') }}"></a>
 
-                <!-- Centro: Enlaces (Ocupan el espacio) -->
+                <!-- Centro: Enlaces -->
                 <div class="d-flex flex-grow-1 justify-content-around gap-4 px-5">
-                    <a class="{{ request()->is('/') ? 'seleccionado' : '' }}" href="/">Inicio</a>
+                    <a class="{{ request()->is('/') ? 'seleccionado' : '' }}" href="/">inicio</a>
+                    <a class="{{ request()->is('contacto') ? 'seleccionado' : '' }}" href="/contacto">Contactos</a>
                     <a href="/devoluciones">Devoluciones</a>
                     <a href="/prestamos">Prestamos</a>
-                    <a href="/usuario/reservas">Reservas</a>
-                    <a href="/generos">Géneros</a>
+                    @auth
+                        @if(Auth::user()->rol === 'bibliotecario')
+                            <a href="/bibliotecario/reservas">Reservas</a>
+                        @else
+                            <a href="/usuario/reservas/crear">Reservas</a>
+                        @endif
+                    @else
+                        <a href="/login">Reservas</a>
+                    @endauth
                 </div>
 
                 <!-- Derecha: Botones -->
@@ -38,25 +46,24 @@
                     <button class="iconos-header"><img src="{{ asset('img/lupa.svg') }}" /></button>
                     <button class="iconos-header"><img src="{{ asset('img/notificacion.svg') }}" /></button>
                     <button class="iconos-header"><img src="{{ asset('img/lista.svg') }}" /></button>
-                    {{ auth()->check() ? 'SI' : 'NO' }}
+                    
                     @auth
-                    {{-- Usuario logueado: mostrar botón de Mi Cuenta --}}
-                    <button class="btn-general ms-2"><a href="/usuario/cuenta">Mi Cuenta</a></button>
-                    <script>
-                        console.log("Usuario logueado");
-                    </script>
+                    {{-- Usuario logueado: botón con avatar --}}
+                    <a href="/usuario/cuenta" class="btn-general d-flex align-items-center gap-2 py-1 pe-3 ps-1 text-decoration-none">
+                        <div class="avatar-header">
+                            <img src="{{ asset('img/user_avatar_placeholder.png') }}" alt="Avatar" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
+                        </div>
+                        <span class="text-white">Mi cuenta</span>
+                    </a>
                     @else
-                    {{-- Sin sesión: mostrar Login --}}
-                    <button class="btn-general ms-2"><a href="/login">Login</a></button>
-                    <script>
-                        console.log("Usuario no logueado");
-                    </script>
+                    {{-- Sin sesión --}}
+                    <a href="/login" class="btn-general text-decoration-none text-white">Login</a>
                     @endauth
                 </div>
             </nav>
         </div>
 
-        <hr>
+        <hr class="opacity-10 m-0">
 
         <!-- Pestañas -->
         <div class="container">
@@ -65,6 +72,7 @@
                 <div class="pestana">Los número 1</div>
                 <div class="pestana">Categorias</div>
                 <div class="pestana">Recursos Académicos</div>
+                <div class="pestana">Editoriales</div>
             </div>
         </div>
     </header>
@@ -78,32 +86,36 @@
     <footer>
         <div class="footer-contenido">
             <div class="footer-columna">
-                <h3>BiblioTech</h3>
-                <p>Un espacio sagrado donde las palabras encuentran paz y la lectura se convierte en una invitación a la serenidad.</p>
-                <div class="footer-logo"><img src="{{ asset('img/LogoBiblioteca.svg') }}" /></div>
+                <h3 class="text-uppercase fw-bold">TITULO</h3>
+                <p>Un espacio sagrado donde las palabras susurran paz y cada momento es una invitación a la serenidad.</p>
+                <div class="footer-logo">
+                    <!-- Izquierda: Logo -->
+                    <a href="/"><img class="logo-icon" src="{{ asset('img/LogoBiblioteca.svg') }}"></a> 
+                </div>
             </div>
 
             <div class="footer-columna">
-                <h4>Navegación</h4>
-                <ul>
-                    <li><a href="/">Inicio</a></li>
-                    <li><a href="/generos">Géneros</a></li>
+                <h4 class="fw-bold mb-4">NAVIGACIÓN</h4>
+                <ul class="list-unstyled">
+                    <li><a href="/" class="text-white-50 text-decoration-none">Inicio</a></li>
+                    <li><a href="/generos" class="text-white-50 text-decoration-none">Géneros</a></li>
+                    <li><a href="/contacto" class="text-white-50 text-decoration-none">Contactos</a></li>
                 </ul>
             </div>
 
             <div class="footer-columna">
-                <h4>Cuenta</h4>
-                <ul>
-                    <li><a href="/login">Login</a></li>
-                    <li><a href="/usuario/cuenta">Mi Cuenta</a></li>
+                <h4 class="fw-bold mb-4">CUENTA</h4>
+                <ul class="list-unstyled">
+                    <li><a href="/login" class="text-white-50 text-decoration-none">Login</a></li>
+                    <li><a href="/usuario/cuenta" class="text-white-50 text-decoration-none">Mi Cuenta</a></li>
                 </ul>
             </div>
 
             <div class="footer-columna">
-                <h4>Ayuda</h4>
-                <ul>
-                    <li><a href="/info-prestamos">Préstamos</a></li>
-                    <li><a href="/info-devolucion">Devoluciones</a></li>
+                <h4 class="fw-bold mb-4">AYUDA</h4>
+                <ul class="list-unstyled">
+                    <li><a href="/prestamos" class="text-white-50 text-decoration-none">Préstamos</a></li>
+                    <li><a href="/ devolucion" class="text-white-50 text-decoration-none">Devoluciones</a></li>
                 </ul>
             </div>
         </div>

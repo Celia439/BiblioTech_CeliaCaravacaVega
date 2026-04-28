@@ -11,23 +11,32 @@
             <table class="tabla-biblioteca text-center">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>ID Reserva</th>
                         <th>ISBN</th>
                         <th>Título</th>
                         <th>Usuario</th>
                         <th>Fecha Reserva</th>
                         <th>Estado</th>
-                        <th style="width: 100px;">Acciones</th>
+                        <th style="width: 150px;">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse($reservas as $reserva)
                     <tr>
-                        <td>55</td>
-                        <td>978-Boring-1</td>
-                        <td class="fw-bold">Don Quijote</td>
-                        <td>Usuario Prueba</td>
-                        <td>19/04/2026</td>
-                        <td><span class="estado-badge estado-activo">Pendiente</span></td>
+                        <td>{{ $reserva->id_reserva }}</td>
+                        <td>{{ $reserva->ejemplar->libro->isbn }}</td>
+                        <td class="fw-bold">{{ $reserva->ejemplar->libro->titulo }}</td>
+                        <td>{{ $reserva->usuario->nombre }} {{ $reserva->usuario->apellido }}</td>
+                        <td>{{ $reserva->fecha_reserva }}</td>
+                        <td>
+                            @if($reserva->estado == 'activa')
+                                <span class="estado-badge estado-activo">Activa</span>
+                            @elseif($reserva->estado == 'cancelada')
+                                <span class="estado-badge estado-bloqueado">Cancelada</span>
+                            @else
+                                <span class="estado-badge shadow-sm">Completada</span>
+                            @endif
+                        </td>
                         <td>
                             <div class="d-flex gap-2 justify-content-center">
                                 <button class="btn btn-sm btn-outline-primary" title="Gestionar"><i class="bi bi-gear"></i></button>
@@ -35,6 +44,11 @@
                             </div>
                         </td>
                     </tr>
+                    @empty
+                    <tr>
+                        <td colspan="7">No hay reservas registradas.</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

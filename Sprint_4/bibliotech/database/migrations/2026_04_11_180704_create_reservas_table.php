@@ -12,9 +12,9 @@ return new class extends Migration
 public function up(): void
 {
     Schema::create('reservas', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('usuario_id')->constrained('users')->onDelete('cascade');
-        $table->foreignId('ejemplar_id')->constrained('ejemplares')->onDelete('cascade');
+        $table->id('id_reserva');
+        $table->foreignId('id_usuario')->constrained('users', 'id_usuario')->onDelete('cascade');
+        $table->foreignId('id_ejemplar')->constrained('ejemplares', 'id_ejemplar')->onDelete('cascade');
         $table->date('fecha_reserva');
         $table->enum('estado', ['activa', 'cancelada', 'completada']);
         $table->text('observacion')->nullable();

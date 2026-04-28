@@ -12,12 +12,12 @@ return new class extends Migration
 public function up(): void
 {
     Schema::create('ejemplares', function (Blueprint $table) {
-        $table->id();
+        $table->id('id_ejemplar');
         $table->string('codigo_barra')->unique();
         $table->enum('estado', ['disponible', 'reservado', 'prestado']);
         $table->date('fecha_alta')->nullable();
-        $table->foreignId('libro_id')->constrained('libros')->onDelete('cascade');
-        $table->foreignId('estanteria_id')->nullable()->constrained('estanterias')->nullOnDelete();
+        $table->foreignId('id_libro')->constrained('libros', 'id_libro')->onDelete('cascade');
+        $table->foreignId('id_estanteria')->nullable()->constrained('estanterias', 'id_estanteria')->nullOnDelete();
         $table->timestamps();
     });
 }

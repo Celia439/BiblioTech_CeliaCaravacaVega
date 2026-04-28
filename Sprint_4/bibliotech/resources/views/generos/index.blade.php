@@ -6,49 +6,55 @@
 <main class="container my-5">
     
     <!-- Puntos de navegación superior -->
-    <div class="d-flex align-items-center justify-content-center mb-4 carrusel-puntos">
+    <div class="d-flex align-items-center justify-content-center mb-4 carrusel-puntos overflow-auto py-2">
         <a href="/" class="text-decoration-none me-3">
             <button class="btn btn-sm btn-secondary rounded-circle" style="width: 32px; height: 32px; background-color: var(--color-header); border:none;">
                 <i class="bi bi-chevron-left" style="color:white; font-size:16px;"></i>
             </button>
         </a>
-        <span class="punto activo mx-2"></span><span class="fs-6 me-3 fw-bold" style="color:var(--color-header)">General</span>
-        <span class="punto mx-2"></span><span class="fs-6 me-3 text-muted">Miedo</span>
-        <span class="punto mx-2"></span><span class="fs-6 me-3 text-muted">Acción</span>
-        <span class="punto mx-1"></span><span class="punto mx-1"></span><span class="punto mx-1"></span><span class="punto mx-1"></span>
+        @foreach($generos as $genero)
+            <a href="{{ route('generos.index', ['id_genero' => $genero->id_genero]) }}" class="text-decoration-none d-flex align-items-center me-3">
+                <span class="punto {{ ($generoActivo && $generoActivo->id_genero == $genero->id_genero) ? 'activo' : '' }} mx-2"></span>
+                <span class="fs-6 fw-bold {{ ($generoActivo && $generoActivo->id_genero == $genero->id_genero) ? '' : 'text-muted' }}" 
+                      style="{{ ($generoActivo && $generoActivo->id_genero == $genero->id_genero) ? 'color:var(--color-header)' : '' }}">
+                    {{ $genero->nombre }}
+                </span>
+            </a>
+        @endforeach
     </div>
 
     <!-- Sección de Géneros -->
     <section class="agrupacion-contenido">
         <div class="d-flex justify-content-between align-items-end mb-4">
             <div>
-                <h2 class="mb-1 text-white">Género: General</h2>
-                <p class="subtitulo text-white opacity-75 mb-0" style="font-size: 0.95rem;">Resultados: 6</p>
+                <h2 class="mb-1 text-white">Género: {{ $generoActivo->nombre ?? 'Todos' }}</h2>
+                <p class="subtitulo text-white opacity-75 mb-0" style="font-size: 0.95rem;">Resultados: {{ $libros->count() }}</p>
             </div>
         </div>
 
         <div class="row g-4">
-            @php
-                $ejemplos = [
-                    ['titulo' => 'Don Quijote de la Mancha', 'desc' => 'La historia del caballero de la triste figura.'],
-                    ['titulo' => 'Cien años de soledad', 'desc' => 'La saga de la familia Buendía en Macondo.'],
-                    ['titulo' => '1984', 'desc' => 'Una distopía sobre el control totalitario y la vigilancia.'],
-                    ['titulo' => 'El Hobbit', 'desc' => 'El viaje de Bilbo Bolsón para recuperar un tesoro.'],
-                    ['titulo' => 'Crónica de una muerte anunciada', 'desc' => 'Una historia sobre el honor y el destino fatal.'],
-                    ['titulo' => 'La sombra del viento', 'desc' => 'Un misterio en la Barcelona de la posguerra.'],
-                ];
-            @endphp
-
-            @foreach($ejemplos as $libro)
+            @forelse($libros as $libro)
             <div class="col-lg-4 col-md-6 mb-3">
                 <div class="tarjeta-item">
-                    <div class="tarjeta-imagen"></div>
-                    <h3>{{ $libro['titulo'] }}</h3>
-                    <p>{{ $libro['desc'] }}</p>
+                    <div class="tarjeta-imagen">
+                        @if($libro->imagen)
+                            <img src="{{ asset('storage/' . $libro->imagen) }}" alt="{{ $libro->titulo }}" class="img-fluid rounded">
+                        @endif
+                    </div>
+                    <h3>{{ $libro->titulo }}</h3>
+                    <p class="text-truncate">{{ $libro->descripcion }}</p>
+                    <div class="d-flex justify-content-between align-items-center mt-auto">
+                        <span class="text-muted small">{{ $libro->autor }}</span>
+                        <a href="{{ route('libros.show', $libro->id_libro) }}" class="btn btn-sm btn-outline-light">Ver más</a>
+                    </div>
                     <button class="btn-favorito">❤</button>
                 </div>
             </div>
-            @endforeach
+            @empty
+            <div class="col-12 text-center text-white opacity-50 py-5">
+                <p>No hay libros disponibles en este género.</p>
+            </div>
+            @endforelse
         </div>
 
         <!-- Paginación -->

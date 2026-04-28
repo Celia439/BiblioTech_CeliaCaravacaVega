@@ -14,37 +14,43 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // 1. Crear el usuario Administrador (Celia)
-        User::create([
-            'nombre' => 'Celia',
-            'apellido' => 'Caravaca',
-            'dni' => '12345678C',
-            'email' => 'admin@bibliotech.es',
-            'password' => Hash::make('password'),
-            'telefono' => '600112233',
-            'direccion' => 'Calle Principal 123',
-            'rol' => 'admin',
-            'estado' => 'activo',
-        ]);
+        User::updateOrCreate(
+            ['email' => 'admin@bibliotech.es'],
+            [
+                'nombre' => 'Celia',
+                'apellido' => 'Caravaca',
+                'dni' => '12345678C',
+                'password' => Hash::make('password'),
+                'telefono' => '600112233',
+                'direccion' => 'Calle Principal 123',
+                'rol' => 'bibliotecario',
+                'estado' => 'activo',
+            ]
+        );
 
         // 2. Crear algunos usuarios Lectores de prueba
-        User::create([
-            'nombre' => 'Juan',
-            'apellido' => 'Pérez',
-            'dni' => '11223344P',
-            'email' => 'lector1@gmail.com',
-            'password' => Hash::make('password'),
-            'rol' => 'lector',
-            'estado' => 'activo',
-        ]);
+        User::updateOrCreate(
+            ['email' => 'lector1@gmail.com'],
+            [
+                'nombre' => 'Juan',
+                'apellido' => 'Pérez',
+                'dni' => '11223344P',
+                'password' => Hash::make('password'),
+                'rol' => 'lector',
+                'estado' => 'activo',
+            ]
+        );
 
-        User::create([
-            'nombre' => 'María',
-            'apellido' => 'García',
-            'dni' => '55667788G',
-            'email' => 'lector2@gmail.com',
-            'password' => Hash::make('password'),
-            'rol' => 'lector',
-            'estado' => 'activo',
-        ]);
+        User::updateOrCreate(
+            ['email' => 'lector2@gmail.com'],
+            [
+                'nombre' => 'María',
+                'apellido' => 'García',
+                'dni' => '55667788G',
+                'password' => Hash::make('password'),
+                'rol' => 'lector',
+                'estado' => 'activo',
+            ]
+        );
     }
 }

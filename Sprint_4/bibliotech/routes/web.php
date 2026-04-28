@@ -18,13 +18,15 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'store']);
 Route::get('/libro/{id}', [LibroController::class, 'show'])->name('libros.show');
 Route::get('/generos', [GeneroController::class, 'index']);
+Route::get('/contacto', [WebController::class, 'contacto']);
 
 //Rutas de usuario logueado
-Route::middleware('auth')->prefix('usuario')->group(function () {
+Route::middleware(['auth','role:lector'])->prefix('usuario')->group(function () {
     Route::get('/cuenta', [UsuarioController::class, 'cuenta']);
     Route::get('/favoritos', [UsuarioController::class, 'favoritos']);
     Route::get('/prestamos', [PrestamoController::class, 'historial']);
     Route::get('/reservas', [ReservaController::class, 'historial']);
+    Route::get('/reservas/crear', [ReservaController::class, 'create']);
     Route::get('/multas', [MultaController::class, 'misMultas']);
 });
 

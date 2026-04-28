@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Multa extends Model
 {
     protected $table = 'multas';
+    protected $primaryKey = 'id_multa';
     public $timestamps = false;
 
     protected $fillable = [

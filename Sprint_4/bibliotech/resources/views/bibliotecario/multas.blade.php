@@ -11,32 +11,46 @@
             <table class="tabla-biblioteca text-center">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th>ID Multa</th>
                         <th>Usuario</th>
                         <th>DNI</th>
                         <th>Importe</th>
                         <th>Fecha Multa</th>
                         <th>Descripción</th>
                         <th>Estado</th>
-                        <th style="width: 100px;">Acciones</th>
+                        <th style="width: 150px;">Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse($multas as $multa)
                     <tr>
-                        <td>12</td>
-                        <td>Usuario Demo</td>
-                        <td>12345678X</td>
-                        <td class="fw-bold text-danger">5.00€</td>
-                        <td>15/04/2026</td>
-                        <td class="small">Retraso de 5 días en devolución</td>
-                        <td><span class="estado-badge estado-bloqueado">Impagada</span></td>
+                        <td>{{ $multa->id_multa }}</td>
+                        <td>{{ $multa->prestamo->lector->nombre }} {{ $multa->prestamo->lector->apellido }}</td>
+                        <td>{{ $multa->prestamo->lector->dni }}</td>
+                        <td class="fw-bold text-danger">{{ $multa->importe }}€</td>
+                        <td>{{ $multa->fecha }}</td>
+                        <td class="small">Multa generada por retraso</td>
+                        <td>
+                            @if(!$multa->pagada)
+                                <span class="estado-badge estado-bloqueado">Impagada</span>
+                            @else
+                                <span class="estado-badge estado-activo">Pagada</span>
+                            @endif
+                        </td>
                         <td>
                             <div class="d-flex gap-2 justify-content-center">
-                                <button class="btn btn-sm btn-outline-success" title="Marcar como Pagada"><i class="bi bi-cash"></i></button>
+                                @if(!$multa->pagada)
+                                    <button class="btn btn-sm btn-outline-success" title="Marcar como Pagada"><i class="bi bi-cash"></i></button>
+                                @endif
                                 <button class="btn btn-sm btn-outline-danger" title="Anular"><i class="bi bi-trash"></i></button>
                             </div>
                         </td>
                     </tr>
+                    @empty
+                    <tr>
+                        <td colspan="8">No hay multas registradas en el sistema.</td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>

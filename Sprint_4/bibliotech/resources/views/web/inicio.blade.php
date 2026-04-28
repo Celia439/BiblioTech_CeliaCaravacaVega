@@ -11,8 +11,11 @@
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
             <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
         </div>
-        <div class="carousel-inner">
+        <div class="carousel-inner mt-5">
             <div class="carousel-item active">
+                <img src="{{ asset('img/ImagenAnuncioEj.png') }}" class="d-block w-100 rounded" alt="Ejemplo de anuncio">
+            </div>
+            <div class="carousel-item ">
                 <div class="banner-contenido p-5">
                     <div class="banner-imagen"></div>
                     <div class="banner-descripcion">
@@ -24,9 +27,6 @@
                         <button class="btn-general">Ver Ofertas</button>
                     </div>
                 </div>
-            </div>
-            <div class="carousel-item">
-                <img src="{{ asset('img/ImagenAnuncioEj.png') }}" class="d-block w-100 rounded" alt="Ejemplo de anuncio">
             </div>
         </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
@@ -84,7 +84,7 @@
         </form>
     </div>
 
-    <!-- Sección de Libros Reales -->
+    <!-- Sección de Libros Reales de seeders-->
     <div class="container my-5">
         <section class="agrupacion-contenido">
             <div class="d-flex justify-content-between align-items-end mb-4">
@@ -111,7 +111,7 @@
                 </div>
                 @empty
                 <div class="col-12">
-                    <p class="text-white text-center">No hay libros cargados todavía. Por favor, ejecuta los seeders.</p>
+                    <p class="text-white text-center">No hay libros cargados todavía. Por favor espere.</p>
                 </div>
                 @endforelse
             </div>

@@ -14,7 +14,15 @@ class UsuarioController extends Controller
 
     public function cuenta()
     {
-        return view('usuario.cuenta');
+        $user = auth()->user();
+        
+        $numPrestamos = \App\Models\Prestamo::where('id_usuario_lector', $user->id_usuario)->count();
+        $numReservas = \App\Models\Reserva::where('id_usuario', $user->id_usuario)->count();
+        $numMultas = \App\Models\Multa::whereHas('prestamo', function($q) use ($user) {
+            $q->where('id_usuario_lector', $user->id_usuario);
+        })->where('pagada', false)->count();
+
+        return view('usuario.cuenta', compact('numPrestamos', 'numReservas', 'numMultas'));
     }
 
     public function favoritos()

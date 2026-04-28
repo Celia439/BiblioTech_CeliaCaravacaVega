@@ -12,8 +12,8 @@ return new class extends Migration
  public function up(): void
 {
     Schema::create('multas', function (Blueprint $table) {
-        $table->id();
-        $table->foreignId('prestamo_id')->unique()->constrained('prestamos')->onDelete('cascade');
+        $table->id('id_multa');
+        $table->foreignId('id_prestamo')->unique()->constrained('prestamos', 'id_prestamo')->onDelete('cascade');
         $table->date('fecha');
         $table->decimal('importe', 8, 2);
         $table->boolean('pagada')->default(false);
