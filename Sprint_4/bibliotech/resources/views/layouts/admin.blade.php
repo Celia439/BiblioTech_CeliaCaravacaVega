@@ -27,18 +27,21 @@
         <a class="navbar-brand px-3" href="/bibliotecario/libros">
             <img src="{{ asset('img/LogoBiblioteca.svg') }}" alt="Logo" style="height: 40px;">
         </a>
-        <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+        <button class="navbar-toggler border-0 text-white" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navMenu">
             <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
         </button>
         <div class="collapse navbar-collapse" id="navMenu">
             <ul class="navbar-nav ms-3">
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('*/prestamos*') ? 'active' : '' }}" href="/bibliotecario/prestamos">
+                    <a class="nav-link {{ request()->is('*/prestamos*') ? 'active' : '' }}"
+                        href="/bibliotecario/prestamos">
                         <span class="nav-icon">+</span> Préstamos
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->is('*/reservas*') ? 'active' : '' }}" href="/bibliotecario/reservas">
+                    <a class="nav-link {{ request()->is('*/reservas*') ? 'active' : '' }}"
+                        href="/bibliotecario/reservas">
                         <span class="nav-icon"><i class="bi bi-calendar3"></i></span> Reservas
                     </a>
                 </li>
@@ -53,7 +56,13 @@
                     <button class="btn border-0 text-white fs-4"><i class="bi bi-bell"></i></button>
                 </li>
                 <li class="nav-item">
-                    <button class="btn btn-outline-light ms-2">Login</button>
+                    @auth
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-logout ms-2">Cerrar Sesión</button>
+                        </form>
+                    @endauth
+
                 </li>
             </ul>
         </div>
@@ -63,16 +72,20 @@
     <div class="d-flex h-100">
 
         <!-- Sidebar -->
-        <div class="sidebar d-none d-md-block" style="width: 160px; min-height: calc(100vh - 60px); background-color: #fff; border-right: 1px solid #eee; padding-top: 0.8rem; flex-shrink: 0;">
-            <a href="/bibliotecario/usuarios" class="d-block px-3 py-2 text-decoration-none {{ request()->is('*/usuarios*') ? 'active-sidebar' : '' }}"
+        <div class="sidebar d-none d-md-block"
+            style="width: 160px; min-height: calc(100vh - 60px); background-color: #fff; border-right: 1px solid #eee; padding-top: 0.8rem; flex-shrink: 0;">
+            <a href="/bibliotecario/usuarios"
+                class="d-block px-3 py-2 text-decoration-none {{ request()->is('*/usuarios*') ? 'active-sidebar' : '' }}"
                 style="color: #333; font-size: 0.9rem; font-weight: 600; border-left: 3px solid transparent; transition: all 0.2s;">
                 Usuarios
             </a>
-            <a href="/bibliotecario/libros" class="d-block px-3 py-2 text-decoration-none {{ request()->is('*/libros*') ? 'active-sidebar' : '' }}"
+            <a href="/bibliotecario/libros"
+                class="d-block px-3 py-2 text-decoration-none {{ request()->is('*/libros*') ? 'active-sidebar' : '' }}"
                 style="color: #333; font-size: 0.9rem; font-weight: 600; border-left: 3px solid transparent; transition: all 0.2s;">
                 Libros
             </a>
-            <a href="/bibliotecario/empresa" class="d-block px-3 py-2 text-decoration-none {{ request()->is('*/empresa*') ? 'active-sidebar' : '' }}"
+            <a href="/bibliotecario/empresa"
+                class="d-block px-3 py-2 text-decoration-none {{ request()->is('*/empresa*') ? 'active-sidebar' : '' }}"
                 style="color: #333; font-size: 0.9rem; font-weight: 600; border-left: 3px solid transparent; transition: all 0.2s;">
                 Empresa
             </a>

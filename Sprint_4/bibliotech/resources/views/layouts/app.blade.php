@@ -31,11 +31,7 @@
                     <a href="/devoluciones">Devoluciones</a>
                     <a href="/prestamos">Prestamos</a>
                     @auth
-                        @if(Auth::user()->rol === 'bibliotecario')
-                            <a href="/bibliotecario/reservas">Reservas</a>
-                        @else
-                            <a href="/usuario/reservas/crear">Reservas</a>
-                        @endif
+                        <a href="/usuario/reservas/crear">Reservas</a>
                     @else
                         <a href="/login">Reservas</a>
                     @endauth
@@ -46,19 +42,26 @@
                     <button class="iconos-header"><img src="{{ asset('img/lupa.svg') }}" /></button>
                     <button class="iconos-header"><img src="{{ asset('img/notificacion.svg') }}" /></button>
                     <button class="iconos-header"><img src="{{ asset('img/lista.svg') }}" /></button>
-                    
+
                     @auth
-                    {{-- Usuario logueado: botón con avatar --}}
-                    <a href="/usuario/cuenta" class="btn-general d-flex align-items-center gap-2 py-1 pe-3 ps-1 text-decoration-none">
-                        <div class="avatar-header">
-                            <img src="{{ asset('img/user_avatar_placeholder.png') }}" alt="Avatar" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
-                        </div>
-                        <span class="text-white">Mi cuenta</span>
-                    </a>
+                        {{-- Usuario logueado: botón con avatar --}}
+                        <a href="/usuario/cuenta"
+                            class="btn-general d-flex align-items-center gap-2 py-1 pe-3 ps-1 text-decoration-none">
+                            <div class="avatar-header">
+                                <img src="{{ asset('img/user_avatar_placeholder.png') }}" alt="Avatar"
+                                    class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;">
+                            </div>
+                            <span class="text-white">Mi cuenta</span>
+                        </a>
+                        <form action="{{ route('logout') }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn-logout">Cerrar Sesión</button>
+                        </form>
                     @else
-                    {{-- Sin sesión --}}
-                    <a href="/login" class="btn-general text-decoration-none text-white">Login</a>
+                        {{-- Sin sesión --}}
+                        <a href="/login" class="btn-general text-decoration-none text-white">Login</a>
                     @endauth
+                 
                 </div>
             </nav>
         </div>
@@ -87,10 +90,11 @@
         <div class="footer-contenido">
             <div class="footer-columna">
                 <h3 class="text-uppercase fw-bold">TITULO</h3>
-                <p>Un espacio sagrado donde las palabras susurran paz y cada momento es una invitación a la serenidad.</p>
+                <p>Un espacio sagrado donde las palabras susurran paz y cada momento es una invitación a la serenidad.
+                </p>
                 <div class="footer-logo">
                     <!-- Izquierda: Logo -->
-                    <a href="/"><img class="logo-icon" src="{{ asset('img/LogoBiblioteca.svg') }}"></a> 
+                    <a href="/"><img class="logo-icon" src="{{ asset('img/LogoBiblioteca.svg') }}"></a>
                 </div>
             </div>
 

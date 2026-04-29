@@ -49,6 +49,10 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware('auth'); // solo usuarios logeados
 
+// Logout
+Route::middleware(['auth'])->group(function () {
+    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+});
 
 //Rutas RESTful publicas (solo lectura)
 Route::resource('libros', LibroController::class);

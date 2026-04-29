@@ -18,7 +18,7 @@ class AuthController extends Controller
             'email' => ['required', 'email'],
             'password' => ['required'],
         ]);
-
+        //Utilizar la clase FacadeAuth
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
 
@@ -33,5 +33,16 @@ class AuthController extends Controller
         return back()->withErrors([
             'email' => 'Las credenciales proporcionadas no coinciden con nuestros registros.',
         ])->onlyInput('email');
+    }
+    public function logout(Request $request)
+    {
+        //Cerrar sesión
+        Auth::logout();
+        //Borrar toda la info de la sesión
+        $request->session()->invalidate();
+        //Regenerar Token CSRF (verifica que los formularios se rellenan por el usuario)
+        $request->session()->regenerateToken();
+        //redireccionar a inicio 
+        return redirect('/');
     }
 }

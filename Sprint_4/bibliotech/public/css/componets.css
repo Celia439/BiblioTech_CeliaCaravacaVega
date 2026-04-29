@@ -87,6 +87,21 @@
     background-color: var(--color-btn-primario-hover) !important;
 }
 
+.btn-logout {
+    background-color: var(--color-btn-logout) !important;
+    color: #fff !important;
+    border: none !important;
+    border-radius: 5px;
+    padding: 8px 20px;
+    font-weight: bold;
+    transition: background-color 0.2s;
+    cursor: pointer;
+}
+
+.btn-logout:hover {
+    background-color: var(--color-btn-logout-hover) !important;
+}
+
 /* Re-definición de Estilos para Header y Footer (Restauración) */
 .menu-principal {
     background-color: var(--color-header);
