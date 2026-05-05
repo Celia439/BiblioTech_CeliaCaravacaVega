@@ -79,7 +79,7 @@
                     <span class="punto me-2"></span> <span class="text-muted">Romance</span>
                 </label>
             </div>
-            
+
             <a href="/generos" class="ms-3"><button type="button" class="btn-siguiente">›</button></a>
         </form>
     </div>
@@ -95,25 +95,7 @@
             </div>
 
             <div class="row g-4">
-                @forelse($libros as $libro)
-                <div class="col-lg-4 col-md-6 mb-3">
-                    <div class="tarjeta-item">
-                        <div class="tarjeta-imagen">
-                            <!-- Placeholder visual -->
-                            <div class="d-flex align-items-center justify-content-center h-100 bg-secondary rounded opacity-25">
-                                <i class="bi bi-book text-white fs-1"></i>
-                            </div>
-                        </div>
-                        <h3>{{ $libro->titulo }}</h3>
-                        <p>{{ Str::limit($libro->descripcion, 100) }}</p>
-                        <button class="btn-favorito">❤</button>
-                    </div>
-                </div>
-                @empty
-                <div class="col-12">
-                    <p class="text-white text-center">No hay libros cargados todavía. Por favor espere.</p>
-                </div>
-                @endforelse
+                <x-libro-component :libros=$libros />
             </div>
         </section>
     </div>

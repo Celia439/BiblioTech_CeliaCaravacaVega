@@ -25,7 +25,7 @@ class WebController extends Controller
 
     public function inicio()
     {
-        $libros = Libro::limit(3)->get();
+        $libros = Libro::limit(6)->get();
         return view('web.inicio', compact('libros'));
     }
 

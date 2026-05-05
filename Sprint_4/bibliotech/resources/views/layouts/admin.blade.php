@@ -84,7 +84,12 @@
                 style="color: #333; font-size: 0.9rem; font-weight: 600; border-left: 3px solid transparent; transition: all 0.2s;">
                 Libros
             </a>
-            <a href="/bibliotecario/empresa"
+            <a href="/bibliotecario/generos"
+                class="d-block px-3 py-2 text-decoration-none {{ request()->is('*/generos*') ? 'active-sidebar' : '' }}"
+                style="color: #333; font-size: 0.9rem; font-weight: 600; border-left: 3px solid transparent; transition: all 0.2s;">
+                Géneros
+            </a>
+                <a href="/bibliotecario/empresa"
                 class="d-block px-3 py-2 text-decoration-none {{ request()->is('*/empresa*') ? 'active-sidebar' : '' }}"
                 style="color: #333; font-size: 0.9rem; font-weight: 600; border-left: 3px solid transparent; transition: all 0.2s;">
                 Empresa

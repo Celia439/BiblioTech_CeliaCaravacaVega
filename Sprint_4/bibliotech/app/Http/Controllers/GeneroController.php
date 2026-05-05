@@ -28,6 +28,12 @@ class GeneroController extends Controller
         return view('generos.index', compact('generos', 'generoActivo', 'libros'));
     }
 
+    public function adminIndex()
+    {
+        $generos = Genero::all();
+        return view('bibliotecario.generos', compact('generos'));
+    }
+
     public function show($id)
     {
         $genero = Genero::findOrFail($id);

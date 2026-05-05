@@ -4,7 +4,7 @@
 
 @section('content')
 <main class="container my-5">
-    
+
     <!-- Puntos de navegación superior -->
     <div class="d-flex align-items-center justify-content-center mb-4 carrusel-puntos overflow-auto py-2">
         <a href="/" class="text-decoration-none me-3">
@@ -12,15 +12,8 @@
                 <i class="bi bi-chevron-left" style="color:white; font-size:16px;"></i>
             </button>
         </a>
-        @foreach($generos as $genero)
-            <a href="{{ route('generos.index', ['id_genero' => $genero->id_genero]) }}" class="text-decoration-none d-flex align-items-center me-3">
-                <span class="punto {{ ($generoActivo && $generoActivo->id_genero == $genero->id_genero) ? 'activo' : '' }} mx-2"></span>
-                <span class="fs-6 fw-bold {{ ($generoActivo && $generoActivo->id_genero == $genero->id_genero) ? '' : 'text-muted' }}" 
-                      style="{{ ($generoActivo && $generoActivo->id_genero == $genero->id_genero) ? 'color:var(--color-header)' : '' }}">
-                    {{ $genero->nombre }}
-                </span>
-            </a>
-        @endforeach
+        <x-generoComponent :generos=$generos />
+
     </div>
 
     <!-- Sección de Géneros -->
@@ -33,37 +26,22 @@
         </div>
 
         <div class="row g-4">
-            @forelse($libros as $libro)
-            <div class="col-lg-4 col-md-6 mb-3">
-                <div class="tarjeta-item">
-                    <div class="tarjeta-imagen">
-                        @if($libro->imagen)
-                            <img src="{{ asset('storage/' . $libro->imagen) }}" alt="{{ $libro->titulo }}" class="img-fluid rounded">
-                        @endif
-                    </div>
-                    <h3>{{ $libro->titulo }}</h3>
-                    <p class="text-truncate">{{ $libro->descripcion }}</p>
-                    <div class="d-flex justify-content-between align-items-center mt-auto">
-                        <span class="text-muted small">{{ $libro->autor }}</span>
-                        <a href="{{ route('libros.show', $libro->id_libro) }}" class="btn btn-sm btn-outline-light">Ver más</a>
-                    </div>
-                    <button class="btn-favorito">❤</button>
-                </div>
-            </div>
-            @empty
+            @if($libros)
+            <x-libro-component :libros=$libros />
+            @else
             <div class="col-12 text-center text-white opacity-50 py-5">
                 <p>No hay libros disponibles en este género.</p>
             </div>
-            @endforelse
+            @endif
         </div>
 
         <!-- Paginación -->
-         <div class="d-flex justify-content-center mt-5">
+        <div class="d-flex justify-content-center mt-5">
             <span class="punto activo border-0 me-2" style="background-color: var(--color-texto-claro);"></span>
             <span class="punto border-0 me-2" style="background-color: rgba(255,255,255,0.2);"></span>
             <span class="punto border-0 me-2" style="background-color: rgba(255,255,255,0.2);"></span>
             <span class="punto border-0" style="background-color: rgba(255,255,255,0.2);"></span>
-         </div>
+        </div>
     </section>
 </main>
 @endsection

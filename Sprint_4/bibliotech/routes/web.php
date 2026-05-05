@@ -17,7 +17,6 @@ Route::get('/prestamos', [WebController::class, 'prestamos']);
 Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'store']);
 Route::get('/libro/{id}', [LibroController::class, 'show'])->name('libros.show');
-Route::get('/generos', [GeneroController::class, 'index']);
 Route::get('/contacto', [WebController::class, 'contacto']);
 
 //Rutas de usuario logueado
@@ -34,6 +33,7 @@ Route::middleware(['auth','role:lector'])->prefix('usuario')->group(function () 
 Route::middleware(['auth', 'role:bibliotecario'])->prefix('bibliotecario')->group(function () {
     Route::get('/', [WebController::class, 'dashboard']);
     Route::get('/empresa', [WebController::class, 'empresa']);
+    Route::get('/generos', [GeneroController::class, 'adminIndex']);
 
     // - Rutas RESTful -
     Route::resources([
@@ -41,6 +41,7 @@ Route::middleware(['auth', 'role:bibliotecario'])->prefix('bibliotecario')->grou
         'prestamos' => PrestamoController::class,
         'reservas' => ReservaController::class,
         'multas' => MultaController::class,
+        'libros' => LibroController::class,
     ]);
 });
 
