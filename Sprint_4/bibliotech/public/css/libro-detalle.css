@@ -1,0 +1,156 @@
+/* Estilos para el detalle del libro (Uso de variables del proyecto) */
+
+.libro-main-wrapper {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* Hero Section */
+.libro-hero {
+    background-color: var(--color-bloque-fondo);
+    border-radius: 15px;
+    padding: 50px;
+    color: var(--color-texto-claro);
+    display: flex;
+    gap: 50px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+    margin-bottom: 40px;
+}
+
+.libro-portada {
+    flex: 0 0 280px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+    aspect-ratio: 2/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px dashed rgba(255,255,255,0.1);
+}
+
+.libro-info h1 {
+    font-size: 2.8rem;
+    font-weight: 800;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.libro-info .autor {
+    font-size: 1.3rem;
+    opacity: 0.8;
+    margin-bottom: 25px;
+}
+
+.libro-info .descripcion {
+    line-height: 1.8;
+    font-size: 1rem;
+    opacity: 0.9;
+    margin-bottom: 30px;
+}
+
+/* Reviews Section */
+.section-header {
+    margin-bottom: 25px;
+    color: var(--color-header);
+    font-weight: 800;
+}
+
+.reviews-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 50px;
+}
+
+.review-card {
+    background-color: var(--color-tarjeta);
+    border-radius: 12px;
+    padding: 25px;
+    color: white;
+    transition: transform 0.3s ease;
+}
+
+.review-card:hover {
+    transform: translateY(-5px);
+}
+
+.stars {
+    color: #ffd166;
+    margin-bottom: 15px;
+    font-size: 1.1rem;
+}
+
+/* Bottom Info List */
+.info-list-card {
+    background-color: var(--color-bloque-fondo);
+    border-radius: 15px;
+    padding: 40px;
+    color: white;
+    margin-bottom: 50px;
+}
+
+.list-item {
+    background: rgba(255,255,255,0.05);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(255,255,255,0.1);
+}
+
+.list-item h4 {
+    color: var(--color-btn-primario);
+    margin-bottom: 5px;
+}
+
+/* Related Grid */
+.related-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
+}
+
+.book-thumb {
+    background: white;
+    border-radius: 10px;
+    padding: 10px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    position: relative;
+    transition: 0.3s;
+}
+
+.book-thumb:hover {
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.thumb-img {
+    height: 180px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 10px;
+}
+
+.btn-reserva-premium {
+    background-color: var(--color-btn-primario);
+    color: white;
+    border: none;
+    padding: 12px 35px;
+    border-radius: 30px;
+    font-weight: 700;
+    text-decoration: none;
+    display: inline-block;
+    transition: background 0.2s;
+}
+
+.btn-reserva-premium:hover {
+    background-color: var(--color-btn-primario-hover);
+    color: white;
+}
+
+@media (max-width: 992px) {
+    .libro-hero { flex-direction: column; padding: 30px; text-align: center; }
+    .libro-portada { margin: 0 auto; }
+    .reviews-grid { grid-template-columns: 1fr; }
+    .related-grid { grid-template-columns: repeat(2, 1fr); }
+}

@@ -21,7 +21,7 @@
                     </div>
                     <div class="progress" style="height: 10px; background-color: #e9ecef;">
                         <!-- Calculamos un ancho proporcional (máximo 100) -->
-                        <div class="progress-bar bg-success" style="width: <?php min($stats['libros'] * 5, 100) ?>%;"></div>
+                        <div class="progress-bar bg-success" style="width: {{ min($stats['libros'] * 1, 100) }}%;"></div>
                     </div>
                 </div>
 
@@ -31,7 +31,7 @@
                         <span style="font-weight: 600; font-size: 0.92rem;">Usuarios: <strong>{{ $stats['usuarios'] }}</strong></span>
                     </div>
                     <div class="progress" style="height: 10px; background-color: #e9ecef;">
-                        <div class="progress-bar bg-info" style="width: <?php min($stats['usuarios'] * 10, 100) ?>%;"></div>
+                        <div class="progress-bar bg-info" style="width: {{ min($stats['usuarios'] * 5, 100) }}%;"></div>
                     </div>
                 </div>
 
@@ -41,7 +41,7 @@
                         <span style="font-weight: 600; font-size: 0.92rem;">Reservas: <strong>{{ $stats['reservas'] }}</strong></span>
                     </div>
                     <div class="progress" style="height: 10px; background-color: #e9ecef;">
-                        <div class="progress-bar bg-warning" style="width: <?php min($stats['reservas'] * 10, 100) ?>%;"></div>
+                        <div class="progress-bar bg-warning" style="width: {{ min($stats['reservas'] * 5, 100) }}%;"></div>
                     </div>
                 </div>
 
@@ -51,7 +51,7 @@
                         <span style="font-weight: 600; font-size: 0.92rem;">Préstamos: <strong>{{ $stats['prestamos'] }}</strong></span>
                     </div>
                     <div class="progress" style="height: 10px; background-color: #e9ecef;">
-                        <div class="progress-bar" style="background-color: #008188; width: <?php min($stats['prestamos'] * 10, 100) ?>%;"></div>
+                        <div class="progress-bar" style="background-color: #008188; width: {{ min($stats['prestamos'] * 4, 100) }}%;"></div>
                     </div>
                 </div>
 
@@ -61,10 +61,12 @@
                         <span style="font-weight: 600; font-size: 0.92rem;">Multas: <strong>{{ $stats['multas'] }}</strong></span>
                     </div>
                     <div class="progress" style="height: 10px; background-color: #e9ecef;">
-                        <div class="progress-bar bg-danger" style="width: <?php min($stats['multas'] * 10, 100) ?>%;"></div>
+                        <div class="progress-bar bg-danger" style="width: {{ min($stats['multas'] * 10, 100) }}%;"></div>
                     </div>
                 </div>
             </div>
+
+
         </div>
 
         <!-- Accesos rápidos -->

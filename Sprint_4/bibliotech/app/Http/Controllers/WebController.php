@@ -20,6 +20,7 @@ class WebController extends Controller
             'prestamos' => Prestamo::count(),
             'multas' => Multa::count(),
         ];
+
         return view('bibliotecario.dashboard', compact('stats'));
     }
 
