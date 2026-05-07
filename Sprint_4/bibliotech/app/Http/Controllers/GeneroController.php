@@ -43,16 +43,16 @@ class GeneroController extends Controller
     public function store(Request $request)
 
     {
-        // Validar datos 
+        //Validar datos 
         $request->validate([
-            'nombre' => 'required|string|max:50',
+            'nombre' => 'required|string|max:50|unique:generos,nombre',
             'descripcion' => 'nullable|string|max:200',
         ]);
 
-        // Crear el registro en la base de datos
+        //Crear el registro en la base de datos
         Genero::create($request->all());
 
         //Redirigir al usuario a la página del género creada
-        return redirect()->route('generos.index')->with('success', 'Género agregado correctamente');
+        return redirect()->back()->with('success', 'Género agregado correctamente');
     }
 }

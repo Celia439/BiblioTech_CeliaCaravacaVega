@@ -53,4 +53,35 @@
         </div>
     </div>
 </div>
+<!-- Modal Nuevo Libro -->
+<div class="modal fade" id="modalNuevoGenero" tabindex="-1" aria-labelledby="modalNuevoGeneroLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg" style="border-radius: 15px;">
+            <div class="modal-header bg-prymary text-white" style="border-radius: 15px 15px 0 0;">
+                <h5 class="modal-title fw-bold" id="modalNuevoGeneroLabel">
+                    <i class="bi bi-plus-circle me-2"></i>Añadir Nuevo Género
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <form action="{{ route('generos.store') }}" method="POST">
+                @csrf
+                <div class="modal-body p-4 text-dark">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="color: var(--color-header);">Nombre del Género</label>
+                        <input type="text" name="nombre" class="form-control rounded-pill px-3" placeholder="Ej: Ciencia Ficción" required>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" style="color: var(--color-header);">Descripción</label>
+                        <textarea name="descripcion" class="form-control" rows="3" style="border-radius: 12px;" placeholder="Breve descripción del género..."></textarea>
+                    </div>
+                </div>
+                <div class="modal-footer border-0 pb-4 justify-content-center">
+                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-naranja rounded-pill px-4 fw-bold">Guardar Género</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 @endsection
