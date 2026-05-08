@@ -55,4 +55,28 @@ class GeneroController extends Controller
         //Redirigir al usuario a la página del género creada
         return redirect()->back()->with('success', 'Género agregado correctamente');
     }
+    public function update(Request $request, $id)
+    {
+        //validamos los datos que nos pasan 
+        $request->validate([
+            'nombre' => 'required|string|max:50|unique:generos,nombre,' . $id . ',id_genero',
+            'descripcion' => 'nullable|string|max:200',
+        ]);
+
+        //Buscamos el genero y lo acutalizamos 
+        $genero = Genero::findOrFail($id);
+        $genero->update($request->all());
+
+        //Redirigimos al usuario a la página del género actualizada
+        return redirect()->back()->with('success', 'Género actualizado correctamente');
+    }
+    public function destroy(Request $request, $id)
+    {
+        // Buscamos el género
+        $genero = Genero::findOrFail($id);
+        //Eliminamos el género
+        $genero->delete();
+        //Redirigimos al usuario a la página del género eliminada
+        return redirect()->back()->with('success', 'Género eliminado correctamente');
+    }
 }

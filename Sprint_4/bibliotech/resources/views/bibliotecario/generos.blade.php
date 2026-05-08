@@ -40,7 +40,14 @@
                                     data-bs-target="#modalAdmin"
                                     data-genero="{{ json_encode($genero) }}">
                                     <i class="bi bi-pencil"></i>
-                                </button> <button class="btn btn-sm btn-outline-danger" title="Eliminar"><i class="bi bi-trash"></i></button>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger"
+                                    title="Eliminar"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalBorrar"
+                                    data-id="{{ $genero->id_genero }}">
+                                    <i class="bi bi-trash"></i>
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -50,6 +57,7 @@
         </div>
     </div>
 </div>
+{{-- Modal de Edición/Creación --}}
 <x-modal-reutilizable
     id="modalAdmin"
     title="Gestionar Género"
@@ -57,5 +65,12 @@
     buttonText="Guardar">
     @include('bibliotecario.partials.form-genero')
 </x-modal-reutilizable>
-
+{{-- Modal de Borrado --}}
+<x-modal-reutilizable
+    id="modalBorrar"
+    title="Eliminar Género"
+    action="" {{-- La pondremos con JS --}}
+    buttonText="Eliminar definitivamente">
+    <p>¿Estás seguro de que deseas eliminar este género? Esta acción no se puede deshacer.</p>
+</x-modal-reutilizable>
 @endsection
