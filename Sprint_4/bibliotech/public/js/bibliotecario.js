@@ -4,27 +4,39 @@ document.addEventListener("DOMContentLoaded", function () {
     if (modalAdmin) {
         modalAdmin.addEventListener("show.bs.modal", function (event) {
             const button = event.relatedTarget;
-            const generoData = button.getAttribute("data-genero");
-            const genero = generoData ? JSON.parse(generoData) : null;
+            const entityData = button.getAttribute("data-entity-data");
+            const entity = entityData ? JSON.parse(entityData) : null;
+            const entityName = button.getAttribute("data-entity-name"); // p.ej. "generos", "libros", "usuarios"
+            const entityTitle = button.getAttribute("data-entity-title"); // p.ej. "Género", "Libro", "Usuario"
             const form = modalAdmin.querySelector("form");
             const modalTitle = modalAdmin.querySelector(".modal-title-text");
-            const methodField = document.getElementById(
-                "method-field-modalAdmin",
-            );
-            const inputNombre = document.getElementById("inputNombre");
-            const inputDescripcion =
-                document.getElementById("inputDescripcion");
+            const methodField = document.getElementById("method-field-modalAdmin");
 
-            if (genero) {
-                modalTitle.textContent = "Editar Género";
-                form.action = "/generos/" + genero.id_genero;
-                methodField.innerHTML =
-                    '<input type="hidden" name="_method" value="PUT">';
-                inputNombre.value = genero.nombre;
-                inputDescripcion.value = genero.descripcion;
+            if (entity) {
+                // MODO EDICIÓN
+                modalTitle.textContent = "Editar " + entityTitle;
+                // Ajustamos la acción del formulario según la entidad
+                // Nota: Usamos el ID de la entidad que puede variar (id_genero, id_libro, id_usuario, etc.)
+                const id = entity.id || entity.id_genero || entity.id_libro || entity.id_usuario || entity.id_prestamo;
+                form.action = "/" + entityName + "/" + id;
+                methodField.innerHTML = '<input type="hidden" name="_method" value="PUT">';
+
+                // Rellenar campos automáticamente
+                // El botón puede tener un atributo data-fields con los IDs de los inputs a rellenar
+                const fieldsAttr = button.getAttribute("data-fields");
+                if (fieldsAttr) {
+                    const fields = JSON.parse(fieldsAttr);
+                    Object.keys(fields).forEach(key => {
+                        const input = document.getElementById(fields[key]);
+                        if (input) {
+                            input.value = entity[key] || "";
+                        }
+                    });
+                }
             } else {
-                modalTitle.textContent = "Añadir Nuevo Género";
-                form.action = "/generos";
+                // MODO CREACIÓN
+                modalTitle.textContent = "Añadir Nuevo " + entityTitle;
+                form.action = "/" + entityName;
                 methodField.innerHTML = "";
                 form.reset();
             }
@@ -37,14 +49,12 @@ document.addEventListener("DOMContentLoaded", function () {
         modalBorrar.addEventListener("show.bs.modal", function (event) {
             const button = event.relatedTarget;
             const id = button.getAttribute("data-id");
+            const entityName = button.getAttribute("data-entity-name");
             const form = modalBorrar.querySelector("form");
-            const methodField = document.getElementById(
-                "method-field-modalBorrar",
-            );
+            const methodField = document.getElementById("method-field-modalBorrar");
 
-            form.action = "/generos/" + id;
-            methodField.innerHTML =
-                '<input type="hidden" name="_method" value="DELETE">';
+            form.action = "/" + entityName + "/" + id;
+            methodField.innerHTML = '<input type="hidden" name="_method" value="DELETE">';
         });
     }
 });

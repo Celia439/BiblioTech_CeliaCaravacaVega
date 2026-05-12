@@ -8,7 +8,11 @@
     <div class="card-biblioteca">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
             <div class="card-titulo">Gestión de Libros</div>
-            <button class="btn btn-naranja btn-sm rounded-pill px-3">
+            <button class="btn btn-naranja btn-sm rounded-pill px-3"
+                data-bs-toggle="modal"
+                data-bs-target="#modalAdmin"
+                data-entity-name="libros"
+                data-entity-title="Libro">
                 <i class="bi bi-plus-lg"></i> Nuevo Libro
             </button>
         </div>
@@ -30,7 +34,7 @@
                 <tbody>
                     @foreach($libros as $libro)
                     <tr>
-                        <td>{{ $libro->id }}</td>
+                        <td>{{ $libro->id_libro }}</td>
                         <td>{{ $libro->isbn }}</td>
                         <td class="fw-bold">{{ $libro->titulo }}</td>
                         <td>{{ $libro->cantidad }}</td>
@@ -46,14 +50,18 @@
                                     title="Editar"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalAdmin"
-                                    data-libro="{{ json_encode($libro) }}">
+                                    data-entity-name="libros"
+                                    data-entity-title="Libro"
+                                    data-entity-data="{{ json_encode($libro) }}"
+                                    data-fields='{"titulo": "inputTitulo", "autor": "inputAutor", "isbn": "inputISBN", "editorial": "inputEditorial", "anio_publicacion": "inputAnio", "cantidad": "inputCantidad", "estado": "inputEstado", "descripcion": "inputDescripcionLibro"}'>
                                     <i class="bi bi-pencil"></i>
                                 </button>
                                 <button class="btn btn-sm btn-outline-danger"
                                     title="Eliminar"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalBorrar"
-                                    data-id="{{ $libro->id }}">
+                                    data-entity-name="libros"
+                                    data-id="{{ $libro->id_libro }}">
                                     <i class="bi bi-trash"></i>
                                 </button>
                             </div>
@@ -65,35 +73,22 @@
         </div>
     </div>
 </div>
-<!-- Modal Nuevo Libro -->
-<div class="modal fade" id="modalNuevoGenero" tabindex="-1" aria-labelledby="modalNuevoGeneroLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-        <div class="modal-content border-0 shadow-lg" style="border-radius: 15px;">
-            <div class="modal-header bg-prymary text-white" style="border-radius: 15px 15px 0 0;">
-                <h5 class="modal-title fw-bold" id="modalNuevoGeneroLabel">
-                    <i class="bi bi-plus-circle me-2"></i>Añadir Nuevo Género
-                </h5>
-                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
 
-            <form action="{{ route('generos.store') }}" method="POST">
-                @csrf
-                <div class="modal-body p-4 text-dark">
-                    <div class="mb-3">
-                        <label class="form-label fw-bold" style="color: var(--color-header);">Nombre del Género</label>
-                        <input type="text" name="nombre" class="form-control rounded-pill px-3" placeholder="Ej: Ciencia Ficción" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label fw-bold" style="color: var(--color-header);">Descripción</label>
-                        <textarea name="descripcion" class="form-control" rows="3" style="border-radius: 12px;" placeholder="Breve descripción del género..."></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer border-0 pb-4 justify-content-center">
-                    <button type="button" class="btn btn-secondary rounded-pill px-4" data-bs-dismiss="modal">Cancelar</button>
-                    <button type="submit" class="btn btn-naranja rounded-pill px-4 fw-bold">Guardar Género</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+{{-- Modal de Edición/Creación --}}
+<x-modal-reutilizable
+    id="modalAdmin"
+    title="Gestionar Libro"
+    action="{{ route('libros.store') }}"
+    buttonText="Guardar">
+    @include('bibliotecario.partials.form-libro')
+</x-modal-reutilizable>
+
+{{-- Modal de Borrado --}}
+<x-modal-reutilizable
+    id="modalBorrar"
+    title="Eliminar Libro"
+    action="" 
+    buttonText="Eliminar definitivamente">
+    <p>¿Estás seguro de que deseas eliminar este libro? Esta acción no se puede deshacer.</p>
+</x-modal-reutilizable>
 @endsection

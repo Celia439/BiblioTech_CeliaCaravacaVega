@@ -10,7 +10,9 @@
             <div class="card-titulo">Gestión de Usuarios</div>
             <button class="btn btn-naranja btn-sm rounded-pill px-3"
                 data-bs-toggle="modal"
-                data-bs-target="#modalAdmin">
+                data-bs-target="#modalAdmin"
+                data-entity-name="usuarios"
+                data-entity-title="Usuario">
                 <i class="bi bi-plus-lg"></i> Nuevo Usuario
             </button>
         </div>
@@ -33,13 +35,13 @@
                     @forelse($usuarios as $usuario)
                     <tr>
                         <td>{{ $usuario->id_usuario }}</td>
-                        <td class="fw-bold">{{ $usuario->nombre }}</td>
+                        <td class="fw-bold">{{ $usuario->nombre }} {{ $usuario->apellido }}</td>
                         <td>{{ $usuario->dni ?? '---' }}</td>
                         <td>{{ $usuario->email }}</td>
-                        <td><span class="badge bg-light text-dark border">{{ ucfirst($usuario->role ?? 'lector') }}</span></td>
+                        <td><span class="badge bg-light text-dark border">{{ ucfirst($usuario->rol ?? 'lector') }}</span></td>
                         <td>
-                            <span class="estado-badge {{ $usuario->status == 'activo' ? 'estado-activo' : 'estado-bloqueado' }}">
-                                {{ ucfirst($usuario->status ?? 'Activo') }}
+                            <span class="estado-badge {{ $usuario->estado == 'activo' ? 'estado-activo' : 'estado-bloqueado' }}">
+                                {{ ucfirst($usuario->estado ?? 'Activo') }}
                             </span>
                         </td>
                         <td>
@@ -48,13 +50,17 @@
                                     title="Editar"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalAdmin"
-                                    data-usuario="{{ json_encode($usuario) }}">
+                                    data-entity-name="usuarios"
+                                    data-entity-title="Usuario"
+                                    data-entity-data="{{ json_encode($usuario) }}"
+                                    data-fields='{"nombre": "inputNombre", "apellido": "inputApellido", "dni": "inputDni", "email": "inputEmail", "rol": "inputRol", "estado": "inputEstado"}'>
                                     <i class="bi bi-pencil"></i>
                                 </button>
                                 <button class="btn btn-sm btn-outline-danger"
                                     title="Eliminar"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalBorrar"
+                                    data-entity-name="usuarios"
                                     data-id="{{ $usuario->id_usuario }}">
                                     <i class="bi bi-trash"></i>
                                 </button>
@@ -83,7 +89,7 @@
 <x-modal-reutilizable
     id="modalBorrar"
     title="Eliminar Usuario"
-    action="" {{-- La pondremos con JS --}}
+    action="" 
     buttonText="Eliminar definitivamente">
     <p>¿Estás seguro de que deseas eliminar este usuario? Esta acción no se puede deshacer.</p>
 </x-modal-reutilizable>

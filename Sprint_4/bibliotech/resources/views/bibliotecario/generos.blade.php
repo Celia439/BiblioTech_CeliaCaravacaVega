@@ -10,7 +10,9 @@
             <div class="card-titulo">Gestión de Géneros</div>
             <button class="btn btn-naranja btn-sm rounded-pill px-3"
                 data-bs-toggle="modal"
-                data-bs-target="#modalAdmin">
+                data-bs-target="#modalAdmin"
+                data-entity-name="generos"
+                data-entity-title="Género">
                 <i class="bi bi-plus-lg"></i> Nuevo Género
             </button>
         </div>
@@ -38,13 +40,17 @@
                                     title="Editar"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalAdmin"
-                                    data-genero="{{ json_encode($genero) }}">
+                                    data-entity-name="generos"
+                                    data-entity-title="Género"
+                                    data-entity-data="{{ json_encode($genero) }}"
+                                    data-fields='{"nombre": "inputNombre", "descripcion": "inputDescripcion"}'>
                                     <i class="bi bi-pencil"></i>
                                 </button>
                                 <button class="btn btn-sm btn-outline-danger"
                                     title="Eliminar"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalBorrar"
+                                    data-entity-name="generos"
                                     data-id="{{ $genero->id_genero }}">
                                     <i class="bi bi-trash"></i>
                                 </button>
@@ -69,7 +75,7 @@
 <x-modal-reutilizable
     id="modalBorrar"
     title="Eliminar Género"
-    action="" {{-- La pondremos con JS --}}
+    action="" 
     buttonText="Eliminar definitivamente">
     <p>¿Estás seguro de que deseas eliminar este género? Esta acción no se puede deshacer.</p>
 </x-modal-reutilizable>
