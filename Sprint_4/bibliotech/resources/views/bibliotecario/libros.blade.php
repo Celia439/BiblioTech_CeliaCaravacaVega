@@ -42,8 +42,20 @@
                         </td>
                         <td>
                             <div class="d-flex gap-2">
-                                <button class="btn btn-sm btn-outline-primary" title="Editar"><i class="bi bi-pencil"></i></button>
-                                <button class="btn btn-sm btn-outline-danger" title="Eliminar"><i class="bi bi-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-primary"
+                                    title="Editar"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalAdmin"
+                                    data-libro="{{ json_encode($libro) }}">
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger"
+                                    title="Eliminar"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalBorrar"
+                                    data-id="{{ $libro->id }}">
+                                    <i class="bi bi-trash"></i>
+                                </button>
                             </div>
                         </td>
                     </tr>

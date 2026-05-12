@@ -27,14 +27,23 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @forelse($prestamos as $prestamo)
                     <tr>
-                        <td>124</td>
-                        <td>978-84-1107-123-9</td>
-                        <td class="fw-bold">El Principito</td>
-                        <td>Usuario Demo</td>
-                        <td>20/04/2026</td>
-                        <td>10/05/2026</td>
-                        <td><span class="estado-badge estado-activo">Pendiente</span></td>
+                        <td>{{ $prestamo->id_prestamo }}</td>
+                        <td>{{ $prestamo->ejemplar->libro->isbn }}</td>
+                        <td class="fw-bold">{{ $prestamo->ejemplar->libro->titulo }}</td>
+                        <td>{{ $prestamo->lector->nombre }}</td>
+                        <td>{{ $prestamo->fecha_prestamo }}</td>
+                        <td>{{ $prestamo->fecha_devolucion }}</td>
+                        <td>
+                            @if($prestamo->estado == 'activo')
+                            <span class="estado-badge estado-activo">Pendiente</span>
+                            @elseif($prestamo->estado == 'cancelado')
+                            <span class="estado-badge estado-bloqueado">Cancelada</span>
+                            @else
+                            <span class="estado-badge shadow-sm">Completada</span>
+                            @endif
+                        </td>
                         <td>
                             <div class="d-flex gap-2 justify-content-center">
                                 <button class="btn btn-sm btn-outline-success" title="Finalizar"><i class="bi bi-check-lg"></i></button>
@@ -42,6 +51,14 @@
                             </div>
                         </td>
                     </tr>
+                    @empty
+                    <tr>
+                        <td colspan="7" class="text-center py-4">
+                            <i class="bi bi-clipboard-data fs-1 text-muted mb-3"></i>
+                            <p class="text-muted fw-bold">No se han registrado préstamos</p>
+                        </td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
