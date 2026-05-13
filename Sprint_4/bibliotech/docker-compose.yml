@@ -1,0 +1,55 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: bibliotech_app
+    ports:
+      - "8000:80"
+    environment:
+      APP_NAME: BiblioTech
+      APP_ENV: local
+      APP_DEBUG: "true"
+      APP_URL: http://localhost:8000
+      DB_CONNECTION: mysql
+      DB_HOST: db
+      DB_PORT: 3306
+      DB_DATABASE: bibliotech
+      DB_USERNAME: bibliotech_user
+      DB_PASSWORD: bibliotech_secret
+      SESSION_DRIVER: database
+      CACHE_STORE: database
+      QUEUE_CONNECTION: database
+      SEED_DATABASE: "false"
+    volumes:
+      - ./storage:/var/www/html/storage
+      - ./bootstrap/cache:/var/www/html/bootstrap/cache
+    depends_on:
+      - db
+    networks:
+      - bibliotech_network
+
+  db:
+    image: mysql:8.0
+    container_name: bibliotech_db
+    restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: bibliotech
+      MYSQL_USER: bibliotech_user
+      MYSQL_PASSWORD: bibliotech_secret
+      MYSQL_ROOT_PASSWORD: bibliotech_root_secret
+    ports:
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+    networks:
+      - bibliotech_network
+
+networks:
+  bibliotech_network:
+    driver: bridge
+
+volumes:
+  db_data:

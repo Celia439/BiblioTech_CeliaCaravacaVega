@@ -11,7 +11,7 @@ class generoComponent extends Component
     /**
      * Create a new component instance.
      */
-    public function __construct(public $generos)
+    public function __construct(public $generos, public $generoActivo = null)
     {
         //
     }

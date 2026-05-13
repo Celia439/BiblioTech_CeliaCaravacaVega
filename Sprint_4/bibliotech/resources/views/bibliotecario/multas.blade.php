@@ -5,7 +5,9 @@
 @section('content')
 <div class="contenido-principal">
     <div class="card-biblioteca">
-        <div class="card-titulo">Control de Multas y Sanciones</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <div class="card-titulo">Control de Multas y Sanciones</div>
+        </div>
 
         <div class="table-responsive" style="margin-top: 1rem;">
             <table class="tabla-biblioteca text-center">
@@ -39,10 +41,24 @@
                         </td>
                         <td>
                             <div class="d-flex gap-2 justify-content-center">
-                                @if(!$multa->pagada)
-                                    <button class="btn btn-sm btn-outline-success" title="Marcar como Pagada"><i class="bi bi-cash"></i></button>
-                                @endif
-                                <button class="btn btn-sm btn-outline-danger" title="Anular"><i class="bi bi-trash"></i></button>
+                                <button class="btn btn-sm btn-outline-primary"
+                                    title="Editar estado"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalAdmin"
+                                    data-entity-name="multas"
+                                    data-entity-title="Multa"
+                                    data-entity-data="{{ json_encode($multa) }}"
+                                    data-fields='{"pagada": "inputPagada"}'>
+                                    <i class="bi bi-pencil"></i>
+                                </button>
+                                <button class="btn btn-sm btn-outline-danger"
+                                    title="Eliminar"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#modalBorrar"
+                                    data-entity-name="multas"
+                                    data-id="{{ $multa->id_multa }}">
+                                    <i class="bi bi-trash"></i>
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -56,4 +72,22 @@
         </div>
     </div>
 </div>
+
+{{-- Modal de Edición --}}
+<x-modal-reutilizable
+    id="modalAdmin"
+    title="Gestionar Multa"
+    action="{{ route('multas.store') }}"
+    buttonText="Guardar">
+    @include('bibliotecario.partials.form-multa')
+</x-modal-reutilizable>
+
+{{-- Modal de Borrado --}}
+<x-modal-reutilizable
+    id="modalBorrar"
+    title="Eliminar Multa"
+    action=""
+    buttonText="Eliminar definitivamente">
+    <p>¿Estás seguro de que deseas eliminar esta multa? Esta acción no se puede deshacer.</p>
+</x-modal-reutilizable>
 @endsection

@@ -18,6 +18,7 @@ Route::get('/login', [AuthController::class, 'login'])->name('login');
 Route::post('/login', [AuthController::class, 'store']);
 Route::get('/libro/{id}', [LibroController::class, 'show'])->name('libros.show');
 Route::get('/contacto', [WebController::class, 'contacto']);
+Route::get('/generos', [GeneroController::class, 'index'])->name('generos.index');
 
 //Rutas de usuario logueado
 Route::middleware(['auth','role:lector'])->prefix('usuario')->group(function () {
@@ -43,6 +44,8 @@ Route::middleware(['auth', 'role:bibliotecario'])->prefix('bibliotecario')->grou
         'multas' => MultaController::class,
         'libros' => LibroController::class,
     ]);
+    Route::resource('generos', GeneroController::class)->except(['index']);
+
 });
 
 //Control de logeo
@@ -55,6 +58,3 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 });
 
-//Rutas RESTful publicas (solo lectura)
-Route::resource('libros', LibroController::class);
-Route::resource('generos', GeneroController::class);

@@ -5,7 +5,16 @@
 @section('content')
 <div class="contenido-principal">
     <div class="card-biblioteca">
-        <div class="card-titulo">Reservas Pendientes</div>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <div class="card-titulo">Reservas Pendientes</div>
+            <button class="btn btn-naranja btn-sm rounded-pill px-3"
+                data-bs-toggle="modal"
+                data-bs-target="#modalAdmin"
+                data-entity-name="reservas"
+                data-entity-title="Reserva">
+                <i class="bi bi-plus-lg"></i> Nueva Reserva
+            </button>
+        </div>
 
         <div class="table-responsive" style="margin-top: 1rem;">
             <table class="tabla-biblioteca text-center">
@@ -43,13 +52,17 @@
                                     title="Editar"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalAdmin"
-                                    data-reserva="{{ json_encode($reserva) }}">
+                                    data-entity-name="reservas"
+                                    data-entity-title="Reserva"
+                                    data-entity-data="{{ json_encode($reserva) }}"
+                                    data-fields='{"id_usuario": "inputUsuario", "id_ejemplar": "inputEjemplarReserva", "fecha_reserva": "inputFechaReserva", "estado": "inputEstadoReserva", "observacion": "inputObservacionReserva"}'>
                                     <i class="bi bi-pencil"></i>
                                 </button>
                                 <button class="btn btn-sm btn-outline-danger"
                                     title="Eliminar"
                                     data-bs-toggle="modal"
                                     data-bs-target="#modalBorrar"
+                                    data-entity-name="reservas"
                                     data-id="{{ $reserva->id_reserva }}">
                                     <i class="bi bi-trash"></i>
                                 </button>
@@ -66,4 +79,22 @@
         </div>
     </div>
 </div>
+
+{{-- Modal de Edición/Creación --}}
+<x-modal-reutilizable
+    id="modalAdmin"
+    title="Gestionar Reserva"
+    action="{{ route('reservas.store') }}"
+    buttonText="Guardar">
+    @include('bibliotecario.partials.form-reserva')
+</x-modal-reutilizable>
+
+{{-- Modal de Borrado --}}
+<x-modal-reutilizable
+    id="modalBorrar"
+    title="Eliminar Reserva"
+    action=""
+    buttonText="Eliminar definitivamente">
+    <p>¿Estás seguro de que deseas eliminar esta reserva? Esta acción no se puede deshacer.</p>
+</x-modal-reutilizable>
 @endsection

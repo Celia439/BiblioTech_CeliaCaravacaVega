@@ -25,4 +25,24 @@ class MultaController extends Controller
 
         return view('usuario.multas', compact('multas'));
     }
+
+    public function update(\Illuminate\Http\Request $request, $id)
+    {
+        $request->validate([
+            'pagada' => 'required|in:0,1',
+        ]);
+
+        $multa = Multa::findOrFail($id);
+        $multa->update($request->all());
+
+        return redirect()->back()->with('success', 'Multa actualizada correctamente');
+    }
+
+    public function destroy($id)
+    {
+        $multa = Multa::findOrFail($id);
+        $multa->delete();
+
+        return redirect()->back()->with('success', 'Multa eliminada correctamente');
+    }
 }

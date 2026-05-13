@@ -1,4 +1,3 @@
-@csrf
 <div class="mb-3">
     <label class="form-label fw-bold">Nombre del Género</label>
     <input type="text" name="nombre" id="inputNombre" class="form-control rounded-pill px-3"
