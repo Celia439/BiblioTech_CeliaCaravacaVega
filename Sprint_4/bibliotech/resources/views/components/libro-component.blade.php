@@ -1,6 +1,6 @@
 @foreach($libros as $libro)
 
-<div class="col-lg-4 col-md-6 mb-3">
+<div class="col-lg-4 col-md-6 col-12 mb-3">
     <div class="tarjeta-item">
         <div class="tarjeta-imagen">
             @if($libro->imagen)

@@ -9,106 +9,300 @@ hr.separador-verde {
     margin: 0;
 }
 
-/* ---Pestañas debajo de Header--- */
+/* ============================================================
+   PESTAÑAS DEBAJO DEL HEADER
+   ============================================================ */
+
+/* BASE (Móvil): scroll horizontal tipo app */
 .pestanas {
     display: flex;
-    justify-content: center;
-    gap: 1em;
-    padding-top: 10px;
+    gap: 0.75em;
+    padding: 8px 0;
+    justify-content: flex-start;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+}
+
+.pestanas::-webkit-scrollbar {
+    display: none;
 }
 
 .pestana {
-    padding: 8px 20px;
+    padding: 6px 14px;
     color: #ffffff;
     cursor: pointer;
-    border-radius: 5px 5px 0 0;
-    border-bottom: 2px solid transparent;
+    border-radius: 20px;
+    border-bottom: none;
+    background-color: rgba(255, 255, 255, 0.1);
     transition: 0.2s;
+    white-space: nowrap;
+    flex-shrink: 0;
+    font-size: 0.85rem;
 }
 
 .pestana:hover {
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: rgba(255, 255, 255, 0.15);
 }
 
-.pestana.activa, .pestana.seleccionado {
-    border-bottom: 2px solid var(--color-texto-muted);
-    background-color: rgba(255, 255, 255, 0.1);
+.pestana.activa,
+.pestana.seleccionado {
+    background-color: rgba(255, 255, 255, 0.25);
 }
 
-/* Banner Principal */
+/* TABLET en adelante: pestañas tradicionales centradas */
+@media (min-width: 768px) {
+    .pestanas {
+        justify-content: center;
+        overflow-x: visible;
+        gap: 1em;
+        padding-top: 10px;
+    }
+
+    .pestana {
+        padding: 8px 20px;
+        border-radius: 5px 5px 0 0;
+        border-bottom: 2px solid transparent;
+        background-color: transparent;
+        font-size: 1rem;
+    }
+
+    .pestana:hover {
+        background-color: rgba(255, 255, 255, 0.05);
+    }
+
+    .pestana.activa,
+    .pestana.seleccionado {
+        border-bottom: 2px solid var(--color-texto-muted);
+        background-color: rgba(255, 255, 255, 0.1);
+    }
+}
+
+/* ============================================================
+   BANNER PRINCIPAL
+   ============================================================ */
+
+/* BASE (Móvil): apilado verticalmente */
 .banner-contenido {
     background: linear-gradient(135deg, #6a709a, #4a4e69);
     border-radius: 15px;
     display: flex;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     color: white;
-    padding: 3rem;
-    margin-bottom: 2rem;
+    padding: 1.5rem 1rem;
+    gap: 1rem;
+    text-align: center;
+    margin-bottom: 1.5rem;
 }
 
 .banner-imagen {
-    width: 250px;
-    height: 200px;
+    width: 100%;
+    max-width: 180px;
+    height: 140px;
     background-color: rgba(240, 248, 247, 0.2);
     border-radius: 10px;
 }
 
 .banner-descuento {
-    font-size: 4rem;
+    font-size: 2.5rem;
     font-weight: bold;
     color: #ffd166;
 }
 
 .banner-descripcion p {
-    font-size: 1.2rem;
+    font-size: 1rem;
     margin-bottom: 0;
 }
 
 .banner-promo {
-    font-size: 1.5rem;
+    font-size: 1.1rem;
     font-weight: 600;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
-/* Layout de Secciones de la Web (Restauración) */
+/* TABLET: fila horizontal, más aire */
+@media (min-width: 768px) {
+    .banner-contenido {
+        flex-direction: row;
+        justify-content: space-around;
+        padding: 2rem;
+        text-align: left;
+        margin-bottom: 2rem;
+    }
+
+    .banner-imagen {
+        width: 220px;
+        height: 180px;
+        max-width: none;
+    }
+
+    .banner-descuento {
+        font-size: 3.5rem;
+    }
+
+    .banner-descripcion p {
+        font-size: 1.1rem;
+    }
+
+    .banner-promo {
+        font-size: 1.3rem;
+    }
+}
+
+/* DESKTOP: tamaños originales */
+@media (min-width: 1024px) {
+    .banner-contenido {
+        padding: 3rem;
+    }
+
+    .banner-imagen {
+        width: 250px;
+        height: 200px;
+    }
+
+    .banner-descuento {
+        font-size: 4rem;
+    }
+
+    .banner-descripcion p {
+        font-size: 1.2rem;
+    }
+
+    .banner-promo {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+}
+
+/* ============================================================
+   PANEL IMAGEN + CONTENIDO (Ej: 1º Libro)
+   ============================================================ */
+
+/* BASE (Móvil): imagen arriba, texto debajo */
 .panel-imagen-contenido {
     background-color: var(--color-bloque-fondo);
     display: flex;
-    padding: 3rem;
+    flex-direction: column;
+    padding: 1.5rem;
     border-radius: 15px;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     color: white;
-    gap: 3rem;
+    gap: 1.5rem;
     align-items: center;
 }
 
 .panel-imagen {
-    flex: 1;
-    height: 300px;
-    background-color: rgba(255,255,255,0.1);
+    width: 100%;
+    height: 200px;
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
 }
 
 .panel-texto {
-    flex: 1.5;
+    width: 100%;
+    text-align: center;
 }
 
+/* TABLET: vuelve a fila horizontal */
+@media (min-width: 768px) {
+    .panel-imagen-contenido {
+        flex-direction: row;
+        padding: 2rem;
+        gap: 2rem;
+        margin-bottom: 2.5rem;
+    }
+
+    .panel-imagen {
+        flex: 1;
+        height: 250px;
+    }
+
+    .panel-texto {
+        flex: 1.5;
+        text-align: left;
+    }
+}
+
+/* DESKTOP: aire original */
+@media (min-width: 1024px) {
+    .panel-imagen-contenido {
+        padding: 3rem;
+        gap: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .panel-imagen {
+        height: 300px;
+    }
+}
+
+.panel-imagen-contenido.m-0 {
+    width: 100%;
+}
+
+/* ============================================================
+   SECCIÓN GÉNEROS
+   ============================================================ */
+
+/* BASE (Móvil) */
 .seccion-generos {
     background-color: var(--color-bloque-fondo);
-    padding: 3rem;
+    padding: 1.25rem;
     border-radius: 15px;
-    margin-bottom: 3rem;
+    margin-bottom: 2rem;
     color: white;
 }
 
-.grid-tarjetas {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 2rem;
-    margin-top: 2rem;
+/* TABLET+ */
+@media (min-width: 768px) {
+    .seccion-generos {
+        padding: 2rem;
+        margin-bottom: 2.5rem;
+    }
 }
 
+/* DESKTOP+ */
+@media (min-width: 1024px) {
+    .seccion-generos {
+        padding: 3rem;
+        margin-bottom: 3rem;
+    }
+}
+
+/* ============================================================
+   GRID DE TARJETAS
+   ============================================================ */
+
+/* BASE (Móvil): una columna */
+.grid-tarjetas {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+/* TABLET: dos columnas */
+@media (min-width: 768px) {
+    .grid-tarjetas {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+}
+
+/* DESKTOP+: auto-fill como tenías */
+@media (min-width: 1024px) {
+    .grid-tarjetas {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 2rem;
+    }
+}
+
+/* ============================================================
+   TARJETA INDIVIDUAL
+   ============================================================ */
 .tarjeta {
     background-color: var(--color-tarjeta);
     padding: 1.5rem;
@@ -119,7 +313,7 @@ hr.separador-verde {
 .tarjeta-imagen {
     width: 100%;
     height: 200px;
-    background-color: rgba(255,255,255,0.1);
+    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 8px;
     margin-bottom: 1rem;
 }
@@ -135,15 +329,38 @@ hr.separador-verde {
     right: 15px;
 }
 
-/* Carrusel y otros */
+/* ============================================================
+   CARRUSEL / GÉNEROS
+   ============================================================ */
+
+/* BASE (Móvil): scroll horizontal */
 .carrusel-puntos {
     display: flex;
-    gap: 15px;
+    gap: 12px;
     align-items: center;
-    justify-content: center;
-    margin: 20px 0;
+    justify-content: flex-start;
+    margin: 15px 0;
     color: var(--color-header);
     font-weight: bold;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 0 0 8px 0;
+}
+
+.carrusel-puntos::-webkit-scrollbar {
+    display: none;
+}
+
+/* TABLET+: centrado y sin scroll */
+@media (min-width: 768px) {
+    .carrusel-puntos {
+        justify-content: center;
+        gap: 15px;
+        margin: 20px 0;
+        overflow-x: visible;
+        padding: 0;
+    }
 }
 
 .punto {
@@ -188,6 +405,28 @@ hr.separador-verde {
     font-weight: bold;
 }
 
-.panel-imagen-contenido.m-0 {
-    width: 100%;
+/* ============================================================
+   AJUSTE GLOBAL DE CONTENEDORES
+   ============================================================ */
+
+/* BASE (Móvil): menos padding lateral para ganar espacio */
+.container {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+}
+
+/* TABLET+: padding intermedio */
+@media (min-width: 768px) {
+    .container {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+    }
+}
+
+/* DESKTOP+: padding original */
+@media (min-width: 1024px) {
+    .container {
+        padding-left: 24px !important;
+        padding-right: 24px !important;
+    }
 }
