@@ -29,8 +29,14 @@ WORKDIR /var/www/html
 # Copiar archivos del proyecto
 COPY . .
 
+# Crear .env desde el ejemplo si no existe (el .env real está en .dockerignore)
+RUN cp .env.example .env
+
 # Instalar dependencias PHP (sin dev, optimizado para producción; quitar --no-dev si es entorno local)
-RUN composer install --no-dev --optimize-autoloader --no-interaction
+RUN composer install --optimize-autoloader --no-interaction
+
+# Limpiar caché de Laravel que pudiera venir del entorno local
+RUN rm -f bootstrap/cache/*.php
 
 # Instalar dependencias Node y compilar assets con Vite
 RUN npm install && npm run build

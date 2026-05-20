@@ -13,7 +13,7 @@
                     <i class="bi bi-chevron-left" style="color:white; font-size:16px;"></i>
                 </button>
             </a>
-            <x-generoComponent :generos=$generos :generoActivo="$generoActivo" />
+            <x-genero-component :generos=$generos :generoActivo="$generoActivo" />
 
         </div>
 
